@@ -15,6 +15,11 @@
 
 main {
     flex: 1;
-    background: var(--light);
+    display: flex;
+    flex-direction: column;
+}
+
+.page {
+    flex: 1;
 }
 </style>

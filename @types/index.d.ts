@@ -1,13 +1,13 @@
-declare type PhaseT = "WAITING" | "CREATING" | "DECK" | "FIGHT";
+export type PhaseT = "WAITING" | "CREATING" | "DECK" | "FIGHT";
 
-declare interface IAttack {
+export interface IAttack {
     name: string;
     damage: number;
     heal: number;
     desc: string;
 }
 
-declare interface ICard {
+export interface ICard {
     name: string;
     health: number;
     cost: number;
@@ -15,7 +15,7 @@ declare interface ICard {
     attacks: IAttack[];
 }
 
-declare interface IPlayer {
+export interface IPlayer {
     id?: string;
     name: string;
     money: number;
@@ -24,7 +24,7 @@ declare interface IPlayer {
     host: boolean;
 }
 
-declare interface IRoom {
+export interface IRoom {
     phase: PhaseT;
     players: IPlayer[];
     currentRound: number;

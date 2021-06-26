@@ -83,6 +83,7 @@ button:hover,
 button:active {
     color: var(--active-color);
     background: var(--normal-color);
+    cursor: pointer;
 }
 
 .button-group button {
