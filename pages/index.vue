@@ -1,3 +1,3 @@
 <template>
-    <h1>CardFlow</h1>
+    <h2>CardFlow</h2>
 </template>
