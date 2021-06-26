@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    font-size: 16px;
+
+    --primary: #70a1ff;
+    --primary-dark: #1e90ff;
+
+    --success: #7bed9f;
+    --success-dark: #2ed573;
+
+    --danger: #ff6b81;
+    --danger-dark: #ff4757;
+
+    --warning: #eccc68;
+    --warning-dark: #ffa502;
+
+    --dark: #2f3542;
+
+    --light: #dfe4ea;
+}
