@@ -1,5 +1,6 @@
 <template>
     <main v-if="room">
+        <code>{{ room }}</code>
         <section v-if="room.state.phase === 'WAITING'">waiting</section>
         <section v-else-if="room.state.phase === 'CREATING'">creating</section>
         <section v-else-if="room.state.phase === 'DECK'">deck</section>
@@ -23,7 +24,7 @@ export default Vue.extend({
     },
     mounted() {
         if (!this.room) {
-            this.$router.push("/");
+            return this.$router.push("/");
         }
     },
 });

@@ -1,8 +1,6 @@
 <template>
     <main>
-        <header>
-            <span class="h5">CardFlow</span>
-
+        <portal to="header">
             <div class="button-group">
                 <button
                     style="--normal-color: var(--success)"
@@ -17,7 +15,7 @@
                     Join Game
                 </button>
             </div>
-        </header>
+        </portal>
     </main>
 </template>
 
@@ -52,19 +50,3 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
-header {
-    padding: 1rem;
-    background: var(--dark);
-    display: flex;
-    align-items: center;
-}
-
-header .h5 {
-    color: var(--light);
-}
-
-header .button-group {
-    margin-left: auto;
-}
-</style>
