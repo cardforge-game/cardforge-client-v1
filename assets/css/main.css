@@ -94,3 +94,16 @@ button:hover, button:active, button:focus {
     color: var(--active-color);
     background: var(--normal-color);
 }
+
+.button-group button {
+    border-radius: 0;
+    margin: 0 -2.5px;
+}
+
+.button-group button:first-of-type {
+    border-radius: 10px 0 0 10px;
+}
+
+.button-group button:last-of-type {
+    border-radius: 0 10px 10px 0;
+}

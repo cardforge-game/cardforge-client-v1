@@ -16,6 +16,7 @@ declare interface ICard {
 }
 
 declare interface IPlayer {
+    id?: string;
     name: string;
     money: number;
     deck: ICard[];
