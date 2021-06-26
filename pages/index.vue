@@ -30,7 +30,9 @@ import state from "~/state";
 export default Vue.extend({
     methods: {
         async createGame() {
-            await state.createRoom();
+            if (await state.createRoom()) {
+                this.$router.push(`/${state.room?.id}`);
+            }
         },
         async joinGame() {
             const { value: roomId } = await Swal.fire({
@@ -42,8 +44,8 @@ export default Vue.extend({
                     value.trim().length === 0 ? "Type in a code." : null,
             });
 
-            if (roomId) {
-                await state.joinRoom(roomId.trim());
+            if (roomId && (await state.joinRoom(roomId.trim()))) {
+                this.$router.push(`/${roomId.trim()}`);
             }
         },
     },

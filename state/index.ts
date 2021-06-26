@@ -15,24 +15,28 @@ export default new Vue({
         async createRoom() {
             try {
                 this.room = await this.client.create<IRoom>(ROOM_NAME);
+                return true;
             } catch (e) {
                 Swal.fire(
                     "That didn't work.",
                     `Unable to create a room.\nReason: ${e}`,
                     "error"
                 );
+                return false;
             }
         },
 
         async joinRoom(roomId: string) {
             try {
                 this.room = await this.client.join<IRoom>(roomId);
+                return true;
             } catch (e) {
                 Swal.fire(
                     "Hmm...",
                     `Unable to join the room ${roomId}.\nReason: ${e}`,
                     "error"
                 );
+                return false;
             }
         },
     },
