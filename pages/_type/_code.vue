@@ -63,18 +63,7 @@ export default Vue.extend({
                 username: "",
             };
         }
-
-        connection.room?.onMessage("error", async (error: string) => {
-            await Swal.fire("Error", error, "error");
-
-            if (error.toLowerCase().includes("name already in use")) {
-                this.$router.push("/");
-            }
-        });
-
-        connection.room?.onStateChange((serverState) => {
-            connection.state = serverState;
-        });
+       
     },
 });
 </script>
