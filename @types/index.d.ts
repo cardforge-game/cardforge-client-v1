@@ -26,6 +26,6 @@ declare interface IPlayer {
 declare interface IRoom {
     phase: PhaseT;
     players: IPlayer[];
-    rounds: number;
+    currentRound: number;
     cardLibrary: ICard[];
 }
