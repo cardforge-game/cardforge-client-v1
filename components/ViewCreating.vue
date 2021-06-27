@@ -1,5 +1,7 @@
 <template>
     <main>
+        <MoneyIndicator />
+
         <section class="card-preview">
             <h1>
                 You've made <b class="h1">{{ acceptedCards.length }}</b> cards.
@@ -24,7 +26,7 @@
                             <input
                                 v-model="cardData.name"
                                 placeholder="Lord of Darkness"
-                                maxlength="12"
+                                maxlength="24"
                                 required
                             />
                         </div>

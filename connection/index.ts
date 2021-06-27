@@ -79,6 +79,7 @@ export default new Vue({
                 });
                 this.room.onStateChange((state) => {
                     this.state = JSON.parse(JSON.stringify(state));
+                    console.log(JSON.parse(JSON.stringify(state)))
                 });
                 this.room.onMessage("library", (lib)=>{
                     this.unsynced.library = lib

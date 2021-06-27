@@ -1,5 +1,7 @@
 <template>
     <main>
+        <MoneyIndicator />
+
         <div class="row">
             <div class="deck">
                 <h1 class="section-header">Card Shop 🛒</h1>
@@ -126,6 +128,7 @@ main {
     display: inline-block;
 
     margin: 0.5rem 1rem;
+    vertical-align: top;
 }
 
 .card-overhead span {

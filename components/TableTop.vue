@@ -3,73 +3,56 @@
         <div class="row top">
             <template v-for="(n, i) in 3">
                 <Card
-                    v-if="players[i] && players[i].activeCard"
-                    :key="i"
-                    :card="players[i].activeCard"
+                    v-if="displayPlayers[i + 5] && displayPlayers[i + 5].activeCard"
+                    :key="i + 5"
+                    :card="displayPlayers[i + 5].activeCard"
+                    :class="{ active: (displayPlayers[i + 5].id === activeID) }"
                     :size="9"
                     :graphic-only="true"
                 />
-                <p v-else-if="players[i]" :key="i" class="no-active-username">
-                    {{ players[i].name }}
-                    {{ players[i].host ? "👑" : "" }}
+                <p v-else-if="displayPlayers[i + 5]" :key="i + 5" class="no-active-username">
+                    {{ displayPlayers[i + 5].name }}
+                    {{ displayPlayers[i + 5].host ? "👑" : "" }}
                 </p>
             </template>
         </div>
         <div class="row mid">
             <template v-for="(n, i) in 2">
                 <Card
-                    v-if="players[i + 3] && players[i + 3].activeCard"
-                    :key="i"
-                    :card="{
-                        id: 'xd',
-                        name: 'Triton Hacks ' + i,
-                        health: 100,
-                        cardCost: 2,
-                        imgURL: 'https://cdn.discordapp.com/icons/838576957909237791/4eb40941d1b57d2ce52e58182792e0e7.webp?size=256',
-                        attacks: [
-                            { name: 'Tail Whip', damage: 20 },
-                            { name: 'Heal Smack', heal: 40, damage: 10 },
-                        ],
-                    }"
+                    v-if="displayPlayers[i + 3] && displayPlayers[i + 3].activeCard"
+                    :key="i + 3"
+                    :card="displayPlayers[i + 3].activeCard"
+                    :class="{ active: (displayPlayers[i + 3].id === activeID) }"
                     :size="9"
                     :graphic-only="true"
                 />
                 <p
-                    v-else-if="players[i + 3]"
-                    :key="i"
+                    v-else-if="displayPlayers[i + 3]"
+                    :key="i + 3"
                     class="no-active-username"
                 >
-                    {{ players[i + 3].name }}
-                    {{ players[i + 3].host ? "👑" : "" }}
+                    {{ displayPlayers[i + 3].name }}
+                    {{ displayPlayers[i + 3].host ? "👑" : "" }}
                 </p>
             </template>
         </div>
         <div class="row bottom">
             <template v-for="(n, i) in 3">
                 <Card
-                    v-if="players[i + 5] && players[i + 5].activeCard"
+                    v-if="displayPlayers[i] && displayPlayers[i].activeCard"
                     :key="i"
-                    :card="{
-                        id: 'xd',
-                        name: 'Triton Hacks ' + i,
-                        health: 100,
-                        cardCost: 2,
-                        imgURL: 'https://cdn.discordapp.com/icons/838576957909237791/4eb40941d1b57d2ce52e58182792e0e7.webp?size=256',
-                        attacks: [
-                            { name: 'Tail Whip', damage: 20 },
-                            { name: 'Heal Smack', heal: 40, damage: 10 },
-                        ],
-                    }"
+                    :card="displayPlayers[i].activeCard"
+                    :class="{ active: (displayPlayers[i].id === activeID) }"
                     :size="9"
                     :graphic-only="true"
                 />
                 <p
-                    v-else-if="players[i + 5]"
+                    v-else-if="displayPlayers[i]"
                     :key="i"
                     class="no-active-username"
                 >
-                    {{ players[i + 5].name }}
-                    {{ players[i + 5].host && "👑" }}
+                    {{ displayPlayers[i].name }}
+                    {{ displayPlayers[i].host ? "👑" : "" }}
                 </p>
             </template>
         </div>
@@ -77,18 +60,47 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue, { PropType } from "vue";
+import connection from "~/connection";
+import { IPlayer } from "~/@types";
+
 export default Vue.extend({
     props: {
         players: {
-            type: Array,
+            type: Array as PropType<IPlayer[]>,
             required: true,
         },
+        activeID: {
+            type: String,
+            required: false,
+            default: ""
+        },
     },
+    computed: {
+        displayPlayers(): IPlayer[] {
+            if (connection.currentPlayer) {
+                const copy = [...this.players];
+
+                const self = copy.findIndex(p => p.id === connection.currentPlayer?.id);
+                console.log(self);
+
+                if (copy.length > 1) {
+                    [copy[self], copy[1]] = [copy[1], copy[self]];
+                }
+
+                return copy;
+            } else {
+                return this.players;
+            }
+        }
+    }
 });
 </script>
 
 <style scoped>
+.active{
+    border: 3px solid rgb(76, 145, 91);
+}
 .no-active-username {
     color: var(--light);
     font-size: 1.5rem;

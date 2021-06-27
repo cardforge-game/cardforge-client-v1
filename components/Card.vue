@@ -2,19 +2,7 @@
     <div
         @click="handleClick"
         :class="`card ${showDetails ? 'detailed-card' : ''}`"
-        :style="`
-            width:${size}rem;
-            height:${(size * 4) / 3}rem;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${
-                card.imgURL
-            });
-            background-size: cover;
-            background-position: center; 
-            background-repeat: no-repeat;
-            ${rotation !== 0 ? `transform: rotate(${rotation}deg);` : ''}
-            ${shadow ? 'box-shadow: 0 -5px 20px rgba(1, 9, 32, 0.5);' : ''}
-            ${customStyle}
-        `"
+        :style="cardStyles"
     >
         <header>
             <h1
@@ -112,6 +100,21 @@ export default Vue.extend({
             default: "",
         },
     },
+    computed: {
+        cardStyles() {
+            return `
+                width: ${this.size}rem;
+                height: ${(this.size * 4) / 3}rem;
+                background-image: ${this.graphicOnly ? 
+                        'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),' : 
+                        'linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),'
+                } url(${this.card.imgURL});
+                ${this.rotation !== 0 ? `transform: rotate(${this.rotation}deg);` : ''}
+                ${this.shadow ? 'box-shadow: 0 -5px 20px rgba(1, 9, 32, 0.5);' : ''}
+                ${this.customStyle}
+            `.replace(/\n/g, " ");
+        }
+    },
     methods: {
         handleClick() {
             this.$emit("click");
@@ -151,7 +154,7 @@ export default Vue.extend({
     grid-template-columns: 4fr 1fr;
 }
 
-.detailed-card .attack {
+/*.detailed-card .attack {
     cursor: pointer;
     transition: background 0.25s ease-in-out;
     padding: 0.25rem;
@@ -161,7 +164,7 @@ export default Vue.extend({
 
 .detailed-card .attack:hover {
     background: rgba(255, 255, 255, 0.375);
-}
+} */
 
 .attack-container {
     margin-left: 1rem;
@@ -237,6 +240,9 @@ header {
     min-height: 140px;
     border-radius: 10px;
     border: 2px solid var(--light);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 hr {

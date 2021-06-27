@@ -1,8 +1,11 @@
 <template>
     <main>
+        <MoneyIndicator />
+
         <TableTop
             v-if="connection.state.players"
             :players="Object.values(connection.state.players)"
+            :activeID="connection.state.activePlayerID"
         />
 
         <PlayerHand />

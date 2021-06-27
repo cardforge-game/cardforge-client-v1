@@ -1,5 +1,8 @@
 <template>
     <footer>
+        <span class="helpText" v-if="!connection.currentPlayer.activeCard">
+            Click on a card from your hand to play it!
+        </span>
         <div class="deck">
             <Card
                 @click="setActive(i)"
@@ -52,6 +55,9 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.helpText{
+    color:white;
+}
 footer {
     justify-self: flex-end;
     align-self: stretch;
