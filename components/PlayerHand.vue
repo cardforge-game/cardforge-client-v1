@@ -22,7 +22,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import connection, { SoundService } from "~/connection";
+import connection from "~/connection";
+import SoundService from "~/connection/sounds";
 
 export default Vue.extend({
     computed: {

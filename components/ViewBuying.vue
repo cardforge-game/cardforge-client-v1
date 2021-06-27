@@ -84,7 +84,8 @@
 <script lang="ts">
 import Vue from "vue";
 import { ICard } from "~/@types";
-import connection, { SoundService } from "~/connection";
+import connection from "~/connection";
+import SoundService from "~/connection/sounds";
 
 export default Vue.extend({
     data() {

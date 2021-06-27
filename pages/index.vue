@@ -38,7 +38,7 @@
             <div class="hero-section-1">
                 <div class="hero-column-right">
                     <div style="text-align: right">
-                        <h1 class="title typewriter">CardForge</h1>
+                        <h1 class="title typewriter bold">CardForge</h1>
                         <p class="subtitle">
                             The card game that puts you at the center.
                         </p>
@@ -60,30 +60,55 @@
             </div>
             <div class="hero-section-1-small" style="padding-bottom: 0px">
                 <div class="hero-column-center">
-                    <h1>How to Play</h1>
+                    <h1 class="bold">How to Play</h1>
                 </div>
             </div>
             <div class="hero-section-1">
-                <div class="hero-column-right">
+                <div class="hero-column-right-instructions">
                     <h4>Joining a Game Room</h4>
                 </div>
-                <div class="hero-column-left">
-                    To create a game room, you can click the
-                    <a @click="initGame('createGame')">"Start Game"</a> button
-                    above.
+                <div class="hero-column-left-instructions">
+                    <div>
+                        To create a game room, you can click the
+                        <a
+                            class="bold selectable"
+                            style="color: var(--primary-dark)"
+                            @click="initGame('createGame')"
+                        >
+                            Start Game
+                        </a>
+                        button above. If someone else has started a game, you
+                        can join them using their code by clicking the
+                        <a
+                            class="bold selectable"
+                            style="color: var(--success-dark)"
+                            @click="initGame('joinGame')"
+                        >
+                            Join Game
+                        </a>
+                        button above.
+                    </div>
                 </div>
-                <div class="hero-column-right">
+                <div class="hero-column-right-instructions">
                     <h4>Phase 1: Creation</h4>
                 </div>
-                <div class="hero-column-left">zxcvzxcvzxcv</div>
-                <div class="hero-column-right">
+                <div class="hero-column-left-instructions">
+                    <div>
+                        During the creation phase, you can design and build your
+                        own cards. A card has a custom image, health value, and
+                        attacks. Simply describe each attack, and our artifical
+                        intelligence system will create a corresponding card,
+                        almost magically.
+                    </div>
+                </div>
+                <div class="hero-column-right-instructions">
                     <h4>Phase 2: Deck Building</h4>
                 </div>
-                <div class="hero-column-left">zxcvzxcvzxcv</div>
-                <div class="hero-column-right">
+                <div class="hero-column-left-instructions">zxcvzxcvzxcv</div>
+                <div class="hero-column-right-instructions">
                     <h4>Phase 3: Fighting</h4>
                 </div>
-                <div class="hero-column-left">zxcvzxcvzxcv</div>
+                <div class="hero-column-left-instructions">zxcvzxcvzxcv</div>
             </div>
         </section>
     </main>

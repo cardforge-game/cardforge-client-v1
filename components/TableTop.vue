@@ -220,10 +220,9 @@ export default Vue.extend({
 }
 
 .table {
-    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/UNO_Logo.svg/1280px-UNO_Logo.svg.png),
-        var(--primary-dark);
+    background: url(/logo.png), radial-gradient(#6dd5ed, #387989);
 
-    background-size: 143px 100px;
+    background-size: 300px 300px, cover;
     background-repeat: no-repeat;
     background-position: center;
 
