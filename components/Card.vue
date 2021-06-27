@@ -55,14 +55,12 @@ export default {
             required: true,
         },
     },
-    methods:{
-        handleClick(){
-            this.$emit("click")
-        }
-    }
-    
-}
-
+    methods: {
+        handleClick() {
+            this.$emit("click");
+        },
+    },
+};
 </script>
 
 <style>

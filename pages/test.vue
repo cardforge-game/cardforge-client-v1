@@ -1,39 +1,39 @@
 <template>
-    <main  class="deckbuilder">
+    <main class="deckbuilder">
         <section class="shopInventoryContainer">
             <div class="deckbuilderContent">
-                <h1 class="sectionHeader">
-                    Card Shop 🛒
-                </h1>
+                <h1 class="sectionHeader">Card Shop 🛒</h1>
                 <div class="cardListing">
-                         <div class="cardItem" v-for="(c,i) in cards" :key="`card-${i}`" >
-                            <span class="cardPrice">Cost: {{c.cardCost}}</span>
-                            <Card @click="buyCard(c.id)" v-for="(c, i) in inventory" :key="`card-${i}`" :card="c"
-                                size="10"></Card>
-                         </div>
+                    <div
+                        v-for="(c, i) in cards"
+                        :key="`card-${i}`"
+                        class="cardItem"
+                    >
+                        <span class="cardPrice">Cost: {{ c.cardCost }}</span>
+                        <Card
+                            :key="`card-${i}`"
+                            :card="c"
+                            size="10"
+                            @click="buyCard(c.id)"
+                        ></Card>
+                    </div>
                 </div>
             </div>
             <div class="deckbuilderContent">
-                <h1 class="sectionHeader">
-                    Inventory 🎒
-                </h1>
-                 <div class="cardListing">
-                   
-                </div>
+                <h1 class="sectionHeader">Inventory 🎒</h1>
+                <div class="cardListing"></div>
             </div>
         </section>
         <section class="deck">
             <div class="deckbuilderContent">
-                <h1 class="sectionHeader">
-                    Active Deck ⚡
-                </h1>
+                <h1 class="sectionHeader">Active Deck ⚡</h1>
             </div>
         </section>
     </main>
 </template>
 
 <script>
-import connection from "~/connection"
+import connection from "~/connection";
 export default {
     data() {
         return {
@@ -41,33 +41,32 @@ export default {
             inventory: [],
         };
     },
-    methods:{
-        buyCard(id){
-            connection.room?.send("buyCard",id)
-        },
-        addToDeck(index){
-            connection.room?.send("addCardToDeck",index)
-        },
-        addToInv(index){
-           connection.room?.send("addCardToDeck",index)
-        }
-    },
-    mounted(){
-        for(let i = 0; i < 5;i++){
+    mounted() {
+        for (let i = 0; i < 5; i++) {
             this.cards.push({
-                id:"xd",
-                name:"Senko Sanko " + i,
-                health:100,
-                cardCost:2,
-                imgURL:"https://i.pinimg.com/originals/46/ba/83/46ba83a5a0266908308541742c53abd3.jpg",
-                attacks:[
-                    {name:"Tail Whip",damage:20},
-                    {name:"Heal Smack",heal:40,damage:10}
-                ]
-            })
+                id: "xd",
+                name: "Senko Sanko " + i,
+                health: 100,
+                cardCost: 2,
+                imgURL: "https://i.pinimg.com/originals/46/ba/83/46ba83a5a0266908308541742c53abd3.jpg",
+                attacks: [
+                    { name: "Tail Whip", damage: 20 },
+                    { name: "Heal Smack", heal: 40, damage: 10 },
+                ],
+            });
         }
     },
-    methods: {},
+    methods: {
+        buyCard(id) {
+            connection.room?.send("buyCard", id);
+        },
+        addToDeck(index) {
+            connection.room?.send("addCardToDeck", index);
+        },
+        addToInv(index) {
+            connection.room?.send("addCardToDeck", index);
+        },
+    },
 };
 </script>
 
