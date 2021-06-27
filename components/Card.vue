@@ -1,6 +1,6 @@
 <template>
     <div
-        class="card"
+        :class="`card ${showDetails ? 'detailed-card' : ''}`"
         :style="`
             width:${size}rem;
             height:${(size * 4) / 3}rem;
@@ -9,6 +9,7 @@
             });
             background-size: cover;
             background-position: center; 
+            background-repeat: no-repeat;
             ${rotation !== 0 ? `transform: rotate(${rotation}deg);` : ''}
             ${shadow ? 'box-shadow: 0 -5px 20px rgba(1, 9, 32, 0.5);' : ''}
             ${style}
@@ -31,6 +32,7 @@
                     v-for="(a, i) in card.attacks"
                     :key="`attk-${i}`"
                     class="attack"
+                    @click="showDetails && showAttackDetails(i)"
                 >
                     <div>
                         <p class="outline">{{ a.name }}</p>
@@ -55,6 +57,7 @@
 </template>
 
 <script lang="ts">
+import Swal from "sweetalert2";
 import Vue, { PropType } from "vue";
 import { ICard } from "~/@types";
 
@@ -93,6 +96,13 @@ export default Vue.extend({
         handleClick() {
             this.$emit("click");
         },
+        showAttackDetails(i: number) {
+            Swal.fire(
+                this.card.attacks[i].name,
+                this.card.attacks[i].desc,
+                "info"
+            );
+        },
     },
 });
 </script>
@@ -115,6 +125,18 @@ export default Vue.extend({
 .attack {
     display: grid;
     grid-template-columns: 4fr 1fr;
+}
+
+.detailed-card .attack {
+    cursor: pointer;
+    transition: background 0.25s ease-in-out;
+    padding: 0.25rem;
+    margin: 0.25rem 0;
+    border-radius: 5px;
+}
+
+.detailed-card .attack:hover {
+    background: rgba(255, 255, 255, 0.375);
 }
 
 .attack-container {
