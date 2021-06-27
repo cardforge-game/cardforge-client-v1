@@ -24,7 +24,7 @@
 
 export default {
     props:{
-        size:Number,
+        size:String,
         card:Object
     },
     

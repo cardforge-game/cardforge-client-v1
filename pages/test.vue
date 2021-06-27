@@ -6,13 +6,22 @@
                     Card Shop
                 </h1>
                 <div class="cardListing">
-                    <Card v-for="(c,i) in cards" :key="`card-${i}`" :card="c" size=10></Card>
+                         <div class="inline-block" v-for="(c,i) in cards" :key="`card-${i}`" >
+                            <span class="cardPrice">Cost: 10</span>
+                            <Card :card="c" size=10 ></Card>
+                         </div>
                 </div>
             </div>
             <div class="deckbuilderContent">
                 <h1 class="sectionHeader">
                     Inventory
                 </h1>
+                 <div class="cardListing">
+                    <draggable 
+                    group="cards"  v-model="inventory">
+                         <Card v-for="(c,i) in inventory" :key="`card-${i}`" :card="c" size=10></Card>
+                    </draggable>
+                </div>
             </div>
         </section>
         <section class="deck">
@@ -31,13 +40,16 @@
 export default {
     data(){
         return{
-            cards:[]
+            cards:[],
+            inventory:[],
         }
     },
+    methods:{
+    },
     mounted(){
-        for(let i = 0; i < 100;i++){
+        for(let i = 0; i < 5;i++){
             this.cards.push({
-                name:"Senko Sanko",
+                name:"Senko Sanko " + i,
                 health:100,
                 imgURL:"https://i.pinimg.com/originals/46/ba/83/46ba83a5a0266908308541742c53abd3.jpg",
                 attacks:[
@@ -51,6 +63,13 @@ export default {
 </script>
 
 <style>
+    .inline-block{
+        display: inline-block
+    }
+    .cardPrice{
+
+        background-color:green;
+    }
     .cardListing{
         max-height: 35vh;
         overflow:scroll;
