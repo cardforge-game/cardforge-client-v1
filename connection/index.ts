@@ -57,12 +57,20 @@ export default new Vue({
 
         initEvents() {
             if (this.room) {
+                this.room.removeAllListeners()
                 this.eventRegistered = false;
                 this.room.onStateChange.once((state) => {
                     this.state = state;
                 });
                 this.room.onStateChange((state) => {
                     this.state = JSON.parse(JSON.stringify(state));
+                });
+                this.room.onMessage("profits", async (profit: number) => {
+                    await Swal.fire({
+                        title:"Profit!",
+                        text:`You made $${profit} from players who bought your card!`,
+                        toast:true
+                    })
                 });
                 this.room.onMessage("error", async (error: string) => {
                     await Swal.fire("Error", error, "error");
