@@ -8,7 +8,8 @@
                 <div class="cardListing">
                          <div class="cardItem" v-for="(c,i) in cards" :key="`card-${i}`" >
                             <span class="cardPrice">Cost: {{c.cardCost}}</span>
-                            <Card @click="buyCard(c.id)" :card="c" size=10 ></Card>
+                            <Card @click="buyCard(c.id)" v-for="(c, i) in inventory" :key="`card-${i}`" :card="c"
+                                size="10"></Card>
                          </div>
                 </div>
             </div>
@@ -28,19 +29,17 @@
                 </h1>
             </div>
         </section>
-
-
     </main>
 </template>
 
 <script>
 import connection from "~/connection"
 export default {
-    data(){
-        return{
-            cards:[],
-            inventory:[],
-        }
+    data() {
+        return {
+            cards: [],
+            inventory: [],
+        };
     },
     methods:{
         buyCard(id){
@@ -67,63 +66,50 @@ export default {
                 ]
             })
         }
-    }
-}
+    },
+    methods: {},
+};
 </script>
 
-<style scoped>
-    .card:hover{
-        border: var(--primary-dark) solid 3px;
-    }
-    .card{
-        transition: border 0.175s ease-in-out;
-    }
-    .cardItem{
-        display: inline-block;
-        margin-top: 2%;
-        color:white;
-    }
-    .cardItem span{
-        padding-left:1rem;
-         padding-right:1rem;
-        color:white;
-    }
-    .cardPrice{
-
-        background-color:var(--success-dark);
-    }
-    .cardListing{
-        max-height: 35vh;
-        overflow:scroll;
-        overflow-x:hidden
-    }
-    .cardListing .card{
-        margin:1%;
-    }
-    .deckbuilderContent{
-        background-color:#ACC6D3;
-    }
-    .shopInventoryContainer{
-        display:grid;
-        grid-template-rows: 1fr 1fr;
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    .deckbuilder{
-          margin-left:2rem;
-          margin-right:2rem;
-          margin-top:1rem;
-          margin-bottom:1rem;
-          min-width: 80vw;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-template-rows:1fr;
-          gap:2vw;
-    }
-    .sectionHeader{
-          margin-left:2em;
-          margin-top:1em;
-          font-size: max(20px,2vw);
-          font-weight:bold;
-    }
+<style>
+.inline-block {
+    display: inline-block;
+}
+.cardPrice {
+    background-color: green;
+}
+.cardListing {
+    max-height: 35vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.cardListing .card {
+    margin: 1%;
+}
+.deckbuilderContent {
+    background-color: #acc6d3;
+}
+.shopInventoryContainer {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+.deckbuilder {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    min-width: 80vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 2vw;
+}
+.sectionHeader {
+    margin-left: 2em;
+    margin-top: 1em;
+    font-size: max(20px, 2vw);
+    font-weight: bold;
+}
 </style>

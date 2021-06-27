@@ -63,7 +63,6 @@ export default Vue.extend({
                 username: "",
             };
         }
-       
     },
 });
 </script>
