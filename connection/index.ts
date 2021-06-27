@@ -18,6 +18,7 @@ export default new Vue({
                 username: "",
                 host: false,
             },
+            time: -1,
         };
     },
 

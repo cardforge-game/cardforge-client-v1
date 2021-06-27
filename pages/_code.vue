@@ -1,5 +1,7 @@
 <template>
     <main>
+        <ClockBar />
+
         <ViewWaiting v-if="connection.state.phase === 'WAITING'" />
         <ViewCreating v-else-if="connection.state.phase === 'CREATING'" />
         <ViewBuying v-else-if="connection.state.phase === 'BUYING'" />
@@ -11,10 +13,14 @@
 <script lang="ts">
 import Swal from "sweetalert2";
 import Vue from "vue";
-
 import connection from "~/connection";
 
 export default Vue.extend({
+    data() {
+        return {
+            interval: -1,
+        };
+    },
     computed: {
         connection() {
             return connection;
@@ -57,6 +63,15 @@ export default Vue.extend({
                 username: "",
             };
         }
+
+        connection.room?.onMessage("resetClock", (count: number) => {
+            connection.time = count;
+            clearInterval(this.interval);
+            this.interval = window.setInterval(
+                () => (connection.time -= 1000),
+                1000
+            );
+        });
     },
 });
 </script>
