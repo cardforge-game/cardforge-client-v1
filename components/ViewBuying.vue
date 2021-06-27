@@ -158,10 +158,13 @@ main {
 
 .row .deck:first-of-type {
     border-radius: 10px 0 0 10px;
+    margin-right: 0;
+    border-right: none;
 }
 
 .row .deck:last-of-type {
-    border-radius: 10px 0 0 1px;
+    border-radius: 0 10px 10px 0;
+    margin-left: 0;
 }
 
 .deck {

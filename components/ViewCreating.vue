@@ -1,6 +1,11 @@
 <template>
     <main>
         <section class="card-preview">
+            <h1>
+                You've made <b class="h1">{{ acceptedCards.length }}</b> cards.
+            </h1>
+            <br />
+
             <details open>
                 <summary class="selectable unhighlightable bold h4">
                     Card Preview
@@ -142,10 +147,11 @@ export default Vue.extend({
         return {
             cardData: {
                 name: "",
-                health: 0,
+                health: 10,
                 imgURL: "",
                 attacks: [],
             } as IPreviewCard,
+            acceptedCards: [] as IPreviewCard[],
         };
     },
     mounted() {
@@ -163,9 +169,13 @@ export default Vue.extend({
                     toast: true,
                 });
 
+                this.acceptedCards.push(
+                    JSON.parse(JSON.stringify(this.cardData))
+                );
+
                 this.cardData = {
                     name: "",
-                    health: 0,
+                    health: 10,
                     imgURL: "",
                     attacks: [],
                 };
@@ -214,6 +224,9 @@ main section {
 @media only screen and (max-width: 1100px) {
     main {
         flex-direction: column;
+    }
+    main section {
+        flex: none;
     }
 }
 

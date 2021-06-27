@@ -1,12 +1,10 @@
 <template>
     <main>
-        <RoomPage v-if="connection.state.phase === 'WAITING'" />
-
-        <section v-else-if="connection.state.phase === 'CREATING'">
-            creating
-        </section>
-        <section v-else-if="connection.state.phase === 'DECK'">deck</section>
-        <section v-else-if="connection.state.phase === 'FIGHT'">fight</section>
+        <ViewWaiting v-if="connection.state.phase === 'WAITING'" />
+        <ViewCreating v-else-if="connection.state.phase === 'CREATING'" />
+        <ViewBuying v-else-if="connection.state.phase === 'BUYING'" />
+        <ViewFighting v-else-if="connection.state.phase === 'FIGHTING'" />
+        <ViewResults v-else-if="connection.state.phase === 'RESULTS'" />
     </main>
 </template>
 

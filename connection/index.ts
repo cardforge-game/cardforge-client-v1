@@ -3,7 +3,7 @@ import { Client as ColyseusClient, Room } from "colyseus.js";
 import Swal from "sweetalert2";
 
 import { ROOM_NAME } from "./constants";
-import { IRoom } from "~/@types";
+import { IPlayer, IRoom } from "~/@types";
 
 export default new Vue({
     data() {
@@ -20,6 +20,17 @@ export default new Vue({
             },
         };
     },
+
+    computed: {
+        currentPlayer(): IPlayer | void {
+            return (
+                this.state.players &&
+                this.room &&
+                this.state.players[this.room.sessionId]
+            );
+        },
+    },
+
     methods: {
         async createRoom(username: string) {
             try {
