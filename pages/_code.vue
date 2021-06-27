@@ -1,12 +1,7 @@
 <template>
     <main>
-        {{ connection.state }}
-        <section v-if="connection.state.phase === 'WAITING'">
-            <portal to="header">
-                <div class="code-display"><b>Code:</b> {{ code }}</div>
-            </portal>
-            waiting
-        </section>
+        <RoomPage v-if="connection.state.phase === 'WAITING'" />
+
         <section v-else-if="connection.state.phase === 'CREATING'">
             creating
         </section>
@@ -29,9 +24,6 @@ export default Vue.extend({
         code() {
             return this.$route.params.code;
         },
-        type(): "c" | "j" {
-            return this.$route.params.type as "c" | "j";
-        },
     },
     async mounted() {
         // joinee (didn't create it)
@@ -46,7 +38,7 @@ export default Vue.extend({
                 username: "",
             };
         } else if (!connection.temp.host) {
-            const { value: username } = await Swal.fire({
+            const res = await Swal.fire({
                 title: "Enter in a username.",
                 input: "text",
                 inputLabel:
@@ -56,7 +48,11 @@ export default Vue.extend({
                     value.trim().length === 0 ? "Type in a code." : null,
             });
 
-            await connection.joinRoom(username, this.code.trim());
+            if (res.isDenied || res.isDismissed) {
+                return this.$router.push("/");
+            }
+
+            await connection.joinRoom(res.value.trim(), this.code.trim());
 
             connection.temp = {
                 host: false,

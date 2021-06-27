@@ -30,7 +30,7 @@ import connection from "~/connection";
 export default Vue.extend({
     methods: {
         async initGame(action: "createGame" | "joinGame") {
-            const { value: username } = await Swal.fire({
+            const res = await Swal.fire({
                 title: "Enter in a username.",
                 input: "text",
                 inputLabel:
@@ -40,13 +40,15 @@ export default Vue.extend({
                     value.trim().length === 0 ? "Type in a code." : null,
             });
 
-            this[action](username);
+            if (!(res.isDenied || res.isDismissed)) {
+                this[action](res.value);
+            }
         },
 
         async createGame(username: string) {
             if ((await connection.createRoom(username)) && connection.room) {
                 connection.temp.host = true;
-                this.$router.push(`/c/${connection.room.id}`);
+                this.$router.push(`/${connection.room.id}`);
             }
         },
         async joinGame(username: string) {
@@ -62,7 +64,7 @@ export default Vue.extend({
             connection.temp.username = username;
 
             if (roomId) {
-                this.$router.push(`/j/${roomId.trim()}`);
+                this.$router.push(`/${roomId.trim()}`);
             }
         },
     },

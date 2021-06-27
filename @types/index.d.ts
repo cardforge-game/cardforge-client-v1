@@ -30,7 +30,7 @@ export interface IPlayer {
 
 export interface IRoom {
     phase: PhaseT;
-    players: IPlayer[];
+    players: Record<string, IPlayer>;
     currentRound: number;
     cardLibrary: ICard[];
 }

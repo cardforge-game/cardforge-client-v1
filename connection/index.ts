@@ -60,7 +60,7 @@ export default new Vue({
                 this.room.removeAllListeners();
                 this.eventRegistered = false;
                 this.room.onStateChange.once((state) => {
-                    this.state = state;
+                    this.state = JSON.parse(JSON.stringify(state));
                 });
                 this.room.onStateChange((state) => {
                     this.state = JSON.parse(JSON.stringify(state));

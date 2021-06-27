@@ -3,7 +3,7 @@
         <div class="row top">
             <template v-for="(n, i) in 3">
                 <Card
-                    v-if="players[i]"
+                    v-if="players[i] && players[i].activeCard"
                     :key="i"
                     :card="{
                         id: 'xd',
@@ -19,12 +19,16 @@
                     :size="9"
                     :graphic-only="true"
                 />
+                <p v-else-if="players[i]" :key="i" class="no-active-username">
+                    {{ players[i].name }}
+                    {{ players[i].host ? "👑" : "" }}
+                </p>
             </template>
         </div>
         <div class="row mid">
             <template v-for="(n, i) in 2">
                 <Card
-                    v-if="players[i + 3]"
+                    v-if="players[i + 3] && players[i + 3].activeCard"
                     :key="i"
                     :card="{
                         id: 'xd',
@@ -40,12 +44,20 @@
                     :size="9"
                     :graphic-only="true"
                 />
+                <p
+                    v-else-if="players[i + 3]"
+                    :key="i"
+                    class="no-active-username"
+                >
+                    {{ players[i + 3].name }}
+                    {{ players[i + 3].host ? "👑" : "" }}
+                </p>
             </template>
         </div>
         <div class="row bottom">
             <template v-for="(n, i) in 3">
                 <Card
-                    v-if="players[i + 5]"
+                    v-if="players[i + 5] && players[i + 5].activeCard"
                     :key="i"
                     :card="{
                         id: 'xd',
@@ -61,6 +73,14 @@
                     :size="9"
                     :graphic-only="true"
                 />
+                <p
+                    v-else-if="players[i + 5]"
+                    :key="i"
+                    class="no-active-username"
+                >
+                    {{ players[i + 5].name }}
+                    {{ players[i + 5].host && "👑" }}
+                </p>
             </template>
         </div>
     </div>
@@ -79,6 +99,16 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.no-active-username {
+    color: var(--light);
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    background: var(--dark);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+}
+
 .table {
     background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/UNO_Logo.svg/1280px-UNO_Logo.svg.png),
         var(--primary-dark);
@@ -121,6 +151,10 @@ export default Vue.extend({
     }
 
     .row.top {
+        transform: rotate(180deg);
+    }
+
+    .row.top .no-active-username {
         transform: rotate(180deg);
     }
 
