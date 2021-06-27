@@ -1,34 +1,46 @@
 <template>
-    <main class="deckbuilder">
-        <section class="shopInventoryContainer">
-            <div class="deckbuilderContent">
-                <h1 class="sectionHeader">Card Shop 🛒</h1>
-                <div class="cardListing">
+    <main>
+        <div class="row">
+            <div class="deck">
+                <h1 class="section-header">Card Shop 🛒</h1>
+                <div class="card-container">
                     <div
                         v-for="(c, i) in cards"
                         :key="`card-${i}`"
-                        class="cardItem"
+                        class="card-item"
                     >
-                        <span class="cardPrice">Cost: {{ c.cardCost }}</span>
-                        <Card
-                            :key="`card-${i}`"
-                            :card="c"
-                            size="10"
-                            @click="buyCard(c.id)"
-                        ></Card>
+                        <div class="card-overhead">
+                            <span class="card-price-display">
+                                Cost: {{ c.cardCost }}
+                            </span>
+                            <span
+                                class="selectable card-buy-button"
+                                @click="buyCard(c.id)"
+                            >
+                                Buy Card
+                            </span>
+                        </div>
+                        <Card :key="`card-${i}`" :card="c" :size="12.5"></Card>
                     </div>
                 </div>
             </div>
-            <div class="deckbuilderContent">
-                <h1 class="sectionHeader">Inventory 🎒</h1>
+            <div class="deck">
+                <h1 class="section-header">Inventory 🎒</h1>
                 <div class="cardListing"></div>
             </div>
-        </section>
-        <section class="deck">
-            <div class="deckbuilderContent">
-                <h1 class="sectionHeader">Active Deck ⚡</h1>
+        </div>
+
+        <div class="row deck horizontal">
+            <div class="section-header">
+                <h1>Active Deck ⚡</h1>
+                <p class="active-deck-info">
+                    Select 7 cards from your inventory that you can play in the
+                    upcoming round.
+                    <br /><br />
+                    <b>Currently: 0/7</b>
+                </p>
             </div>
-        </section>
+        </div>
     </main>
 </template>
 
@@ -70,45 +82,102 @@ export default {
 };
 </script>
 
-<style>
-.inline-block {
-    display: inline-block;
+<style scoped>
+main {
+    margin: 1rem 2rem;
+
+    display: flex;
+    flex-direction: column;
 }
-.cardPrice {
-    background-color: green;
-}
-.cardListing {
-    max-height: 35vh;
-    overflow: scroll;
+
+.card-container {
+    max-height: 40vh;
+
+    overflow-y: auto;
     overflow-x: hidden;
 }
-.cardListing .card {
-    margin: 1%;
+
+.card-item {
+    display: inline-block;
+
+    margin: 0.5rem 1rem;
 }
-.deckbuilderContent {
-    background-color: #acc6d3;
+
+.card-overhead span {
+    display: inline-block;
+
+    font-weight: bold;
+
+    padding: 0.25rem 0.5rem;
+
+    border: 2px var(--light) solid;
+    border-bottom: none;
+
+    border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
-.shopInventoryContainer {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+
+.card-overhead .card-price-display {
+    background-color: var(--success-dark);
 }
-.deckbuilder {
-    margin-left: 2rem;
-    margin-right: 2rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    min-width: 80vw;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-    gap: 2vw;
+
+.card-overhead .card-buy-button {
+    background-color: var(--primary-dark);
+    color: var(--light);
 }
-.sectionHeader {
-    margin-left: 2em;
-    margin-top: 1em;
+
+.card-overhead :not(span:first-of-type) {
+    margin: 0 -6.25px;
+}
+
+.card::v-deep {
+    border-top-left-radius: 0;
+}
+
+.row {
+    display: flex;
+}
+
+.deck {
+    background-color: var(--primary-light);
+    flex: 1;
+    margin: 1rem;
+    border: var(--dark) 2px solid;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.section-header {
+    padding: 1rem;
+
+    border-bottom: 2px var(--dark) solid;
+
     font-size: max(20px, 2vw);
     font-weight: bold;
+
+    background: var(--primary);
+    color: var(--light);
+}
+
+.deck.horizontal .section-header {
+    border-bottom: none;
+    border-right: 2px var(--dark) solid;
+    padding: 1rem 0;
+}
+
+.deck.horizontal h1 {
+    font-size: max(20px, 2vw);
+    font-weight: bold;
+
+    color: var(--light);
+    padding: 0 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px var(--dark) solid;
+}
+
+.active-deck-info {
+    padding: 1rem;
+    max-width: 11rem;
 }
 </style>

@@ -40,7 +40,6 @@ export default Vue.extend({
     methods: {
         getCardRotation(i: number) {
             const midpoint = (this.cards.length - 1) / 2;
-
             return 2.5 * (i - midpoint);
         },
     },
@@ -68,8 +67,6 @@ footer {
 
     box-shadow: 0 -5px 20px rgba(1, 9, 32, 0.5);
 
-    text-align: center;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -77,41 +74,13 @@ footer {
 
 .card {
     color: var(--light);
-    display: inline-block;
-    background: #a55eea;
-    color: white;
-
-    width: 13.5rem;
-    height: 20rem;
     margin: 0 -2rem;
 
-    border-radius: 20px;
     box-shadow: 0 -5px 20px rgba(1, 9, 32, 0.5);
-    border: 2px solid white;
-
-    text-align: left;
 
     overflow: hidden;
 
     transition: transform 0.25s ease-in-out;
-}
-
-.card .title {
-    color: var(--light);
-    background: #8854d0;
-
-    font-size: 1.5rem;
-
-    padding: 0.5rem;
-
-    display: flex;
-}
-
-.card .health {
-    color: var(--light);
-    font-size: 1.25rem;
-    margin-left: auto;
-    font-weight: bold;
 }
 
 .card:hover {

@@ -2,6 +2,7 @@
     font-size: 16px;
     --primary: #70a1ff;
     --primary-dark: #1e90ff;
+    --primary-light: #a7c6ff;
     --success: #7bed9f;
     --success-dark: #2ed573;
     --danger: #ff6b81;
@@ -19,6 +20,7 @@
     font-family: "Raleway", sans-serif;
     font-weight: normal;
     color: var(--dark);
+    box-sizing: border-box;
 }
 
 code {
@@ -97,4 +99,8 @@ button:active {
 
 .button-group button:last-of-type {
     border-radius: 0 10px 10px 0;
+}
+
+.selectable:hover {
+    cursor: pointer;
 }
