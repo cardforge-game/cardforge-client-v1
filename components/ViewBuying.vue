@@ -5,7 +5,7 @@
                 <h1 class="section-header">Card Shop 🛒</h1>
                 <div class="card-container">
                     <div
-                        v-for="(c, i) in cards"
+                        v-for="(c, i) in connection.unsynced.library"
                         :key="`card-${i}`"
                         class="card-item"
                     >
@@ -31,7 +31,20 @@
             </div>
             <div class="deck">
                 <h1 class="section-header">Inventory 🎒</h1>
-                <div class="cardListing"></div>
+                <div class="card-container">
+                    <div
+                        v-for="(c, i) in connection.currentPlayer.inventory"
+                        :key="`card-inv-${i}`"
+                        class="card-item"
+                    >
+                        <Card
+                            @click="addToDeck(i)"
+                            :card="c"
+                            :size="15"
+                            :shadow="false"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -42,9 +55,23 @@
                     Select 7 cards from your inventory that you can play in the
                     upcoming round.
                     <br /><br />
-                    <b>Currently: 0/7</b>
+                    <b>Currently: {{connection.currentPlayer.deck.length}}/7</b>
                 </p>
             </div>
+             <div class="card-container">
+                    <div
+                        v-for="(c, i) in connection.currentPlayer.deck"
+                        :key="`card-deck-${i}`"
+                        class="card-item"
+                    >
+                        <Card
+                            @click="addToInv(i)"
+                            :card="c"
+                            :size="15"
+                            :shadow="false"
+                        />
+                    </div>
+                </div>
         </div>
     </main>
 </template>
@@ -55,45 +82,26 @@ import { ICard } from "~/@types";
 import connection from "~/connection";
 
 export default Vue.extend({
+    computed:{
+        connection() {
+            return connection;
+        }
+    },
     data() {
         return {
             cards: [] as ICard[],
             inventory: [],
         };
     },
-    mounted() {
-        for (let i = 0; i < 5; i++) {
-            this.cards.push({
-                id: "xd",
-                name: "Triton Hacks " + i,
-                health: 100,
-                cardCost: 2,
-                imgURL: "https://cdn.discordapp.com/icons/838576957909237791/4eb40941d1b57d2ce52e58182792e0e7.webp?size=256",
-                attacks: [
-                    {
-                        name: "Tail Whip",
-                        damage: 20,
-                        desc: "james charles overdoses on a frappucino",
-                    },
-                    {
-                        name: "Heal Smack",
-                        heal: 40,
-                        damage: 10,
-                        desc: "jojo siwa becomes calliou and wins robux",
-                    },
-                ],
-            });
-        }
-    },
     methods: {
         buyCard(id: string) {
-            connection.room?.send("buyCard", id);
+            connection.room?.send("buyCard", {id});
         },
         addToDeck(index: number) {
-            connection.room?.send("addCardToDeck", index);
+            connection.room?.send("addCardToDeck", {index});
         },
         addToInv(index: number) {
-            connection.room?.send("addCardToDeck", index);
+        connection.room?.send("addCardToInventory", {index});
         },
     },
 });

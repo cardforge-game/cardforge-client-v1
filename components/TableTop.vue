@@ -5,17 +5,7 @@
                 <Card
                     v-if="players[i] && players[i].activeCard"
                     :key="i"
-                    :card="{
-                        id: 'xd',
-                        name: 'Triton Hacks ' + i,
-                        health: 100,
-                        cardCost: 2,
-                        imgURL: 'https://cdn.discordapp.com/icons/838576957909237791/4eb40941d1b57d2ce52e58182792e0e7.webp?size=256',
-                        attacks: [
-                            { name: 'Tail Whip', damage: 20 },
-                            { name: 'Heal Smack', heal: 40, damage: 10 },
-                        ],
-                    }"
+                    :card="players[i].activeCard"
                     :size="9"
                     :graphic-only="true"
                 />

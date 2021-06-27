@@ -1,5 +1,6 @@
 <template>
     <div
+        @click="handleClick"
         :class="`card ${showDetails ? 'detailed-card' : ''}`"
         :style="`
             width:${size}rem;

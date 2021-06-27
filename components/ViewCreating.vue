@@ -112,6 +112,7 @@
                 <div class="subsection">
                     <div class="button-group">
                         <button
+                            type="button"
                             style="
                                 --normal-color: var(--primary-dark);
                                 --active-color: var(--light);
@@ -146,11 +147,27 @@ export default Vue.extend({
     data() {
         return {
             cardData: {
+                name: "Test Card",
+                health: 10,
+                cardCost: 2,
+                imgURL: "https://cdn.discordapp.com/icons/838576957909237791/4eb40941d1b57d2ce52e58182792e0e7.webp?size=256",
+                attacks: [
+                    {
+                        name: "Tail Whip",
+                        desc: "Tail smacks the enemy dealing 7 damage",
+                    },
+                    {
+                        name: "Heal Smack",
+                        desc: "Smack the enemy to deal 5 damage. Test Card heals 2 health in the process.",
+                    },
+                ],
+            } as IPreviewCard,
+            /*{
                 name: "",
                 health: 10,
                 imgURL: "",
                 attacks: [],
-            } as IPreviewCard,
+            } as IPreviewCard,*/
             acceptedCards: [] as IPreviewCard[],
         };
     },

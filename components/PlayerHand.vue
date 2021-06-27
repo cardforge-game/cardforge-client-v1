@@ -2,26 +2,10 @@
     <footer>
         <div class="deck">
             <Card
-                v-for="(card, i) in cards"
+                @click="setActive(i)"
+                v-for="(card, i) in connection.currentPlayer.deck"
                 :key="i"
-                :card="{
-                    name: `${card} ${i}`,
-                    health: 100,
-                    imgURL: 'https://cdn.discordapp.com/icons/838576957909237791/4eb40941d1b57d2ce52e58182792e0e7.webp?size=256',
-                    attacks: [
-                        {
-                            name: 'Tail Whip',
-                            damage: 20,
-                            desc: 'senko san won triton hacks and infinten vbuck',
-                        },
-                        {
-                            name: 'Heal Smack',
-                            heal: 40,
-                            damage: 10,
-                            desc: 'i am not just your hrealer fire in the hole watch this',
-                        },
-                    ],
-                }"
+                :card="card"
                 :size="15"
                 :rotation="getCardRotation(i)"
                 :show-details="true"
@@ -33,7 +17,14 @@
 
 <script lang="ts">
 import Vue from "vue";
+import connection from "~/connection";
+
 export default Vue.extend({
+    computed:{
+        connection() {
+            return connection;
+        }
+    },
     data() {
         return {
             cards: [
@@ -53,6 +44,9 @@ export default Vue.extend({
             const midpoint = (this.cards.length - 1) / 2;
             return 2.5 * (i - midpoint);
         },
+        setActive(index: number){
+            connection.room?.send("setActive",{index})
+        }
     },
 });
 </script>
