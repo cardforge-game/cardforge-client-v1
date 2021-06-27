@@ -10,6 +10,7 @@ export default new Vue({
         return {
             client: new ColyseusClient(process.env.SERVER_ENDPOINT),
             room: undefined as Room<IRoom> | void,
+            eventRegistered: false,
             state: {
                 phase: "WAITING",
             } as IRoom,
@@ -56,6 +57,7 @@ export default new Vue({
 
         initEvents() {
             if (this.room) {
+                this.eventRegistered = false
                 this.room.onStateChange.once((state) => {
                     this.state = state;
                 });
