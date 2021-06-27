@@ -3,14 +3,8 @@ import { Client as ColyseusClient, Room } from "colyseus.js";
 import Swal from "sweetalert2";
 
 import { ROOM_NAME } from "./constants";
-import { IPlayer, IRoom, IAttack } from "~/@types";
+import { IAttackBroadcast, IPlayer, IRoom } from "~/@types";
 import SoundService from "~/connection/sounds";
-
-interface IAttackData {
-    attacker: IPlayer;
-    reciever: IPlayer;
-    attack: IAttack;
-}
 
 export default new Vue({
     data() {
@@ -97,6 +91,7 @@ export default new Vue({
                         title: "Profit!",
                         text: `You made $${profit} from players who bought your card!`,
                         toast: true,
+                        position: "top-end",
                     });
                 });
                 this.room.onMessage("error", async (error: string) => {
@@ -106,11 +101,14 @@ export default new Vue({
                         this.$router.push("/");
                     }
                 });
-                this.room.onMessage("attacked", (attackData: IAttackData) => {
-                    SoundService.damage.play();
-                    // Effects / Animations
-                    console.log(attackData);
-                });
+                this.room.onMessage(
+                    "attacked",
+                    (attackData: IAttackBroadcast) => {
+                        SoundService.damage.play();
+                        // Effects / Animations
+                        console.log(attackData);
+                    }
+                );
 
                 this.room.onMessage("results", (r: Record<string, number>) => {
                     this.results = r;

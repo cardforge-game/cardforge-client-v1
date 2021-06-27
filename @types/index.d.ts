@@ -35,3 +35,9 @@ export interface IRoom {
     cardLibrary: ICard[];
     activePlayerID: string;
 }
+
+export interface IAttackBroadcast {
+    attacker: string;
+    reciever: string;
+    attack: IAttack;
+}

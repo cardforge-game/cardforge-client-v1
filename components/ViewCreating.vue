@@ -19,7 +19,10 @@
                 >
                     <span class="h4">{{ card.name }}</span>
 
-                    <button @click="loadCard(card)">Load Card</button>
+                    <div class="button-group">
+                        <button @click="loadCard(card)">Load Card</button>
+                        <button @click="deleteCard(i)">Delete</button>
+                    </div>
                 </div>
             </details>
 
@@ -198,6 +201,7 @@ export default Vue.extend({
                     title: "Card Accepted!",
                     icon: "success",
                     toast: true,
+                    position: "top-end",
                 });
 
                 this.acceptedCards++;
@@ -233,6 +237,13 @@ export default Vue.extend({
         },
         loadCard(card: IPreviewCard) {
             this.cardData = JSON.parse(JSON.stringify(card));
+        },
+        deleteCard(i: number) {
+            this.currentCache.splice(i, 1);
+            localStorage.setItem(
+                "cachedCards",
+                JSON.stringify(this.currentCache)
+            );
         },
     },
 });

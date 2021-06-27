@@ -1,9 +1,9 @@
 <template>
     <main>
         <ol v-if="results">
-            <li v-for="(player, i) in Object.entires(results)">
-                <b>{{ player[0] }}</b
-                >: {{ player[1] }} points
+            <li v-for="(player, i) in Object.entries(results)" :key="i">
+                <b>{{ player[0] }}</b>
+                : {{ player[1] }} points
             </li>
         </ol>
     </main>
