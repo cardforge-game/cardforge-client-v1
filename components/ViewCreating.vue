@@ -230,7 +230,7 @@ main section {
 
 .card {
     text-align: left;
-    display: inline-block;
+    display: inline-flex;
     margin-top: 2rem;
 }
 

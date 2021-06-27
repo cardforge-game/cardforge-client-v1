@@ -14,6 +14,7 @@
                 :show-details="true"
                 :custom-style="`z-index: ${i + 100};`"
                 @click="setActive(i)"
+                @mouseenter="playHoverSound"
             />
         </div>
     </footer>
@@ -21,22 +22,9 @@
 
 <script lang="ts">
 import Vue from "vue";
-import connection from "~/connection";
+import connection, { SoundService } from "~/connection";
 
 export default Vue.extend({
-    data() {
-        return {
-            cards: [
-                "Tensorflow",
-                "Meat Shield",
-                "Skittles",
-                "Tylenol",
-                "Motrin",
-                "Tylenol",
-                "Motrin",
-            ],
-        };
-    },
     computed: {
         connection() {
             return connection;
@@ -44,12 +32,20 @@ export default Vue.extend({
     },
 
     methods: {
-        getCardRotation(i: number) {
-            const midpoint = (this.cards.length - 1) / 2;
-            return 2.5 * (i - midpoint);
+        playHoverSound() {
+            SoundService.hover.play();
+        },
+        getCardRotation(i: number): number {
+            if (connection.currentPlayer) {
+                const midpoint = (connection.currentPlayer.deck.length - 1) / 2;
+                return 2.5 * (i - midpoint);
+            }
+
+            return 0;
         },
         setActive(index: number) {
             connection.room?.send("setActive", { index });
+            SoundService.placeCard.play();
         },
     },
 });

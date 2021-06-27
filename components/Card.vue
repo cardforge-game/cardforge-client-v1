@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="`card ${showDetails ? 'detailed-card' : ''}`"
+        :class="`card ${isInteractive ? 'interactive-card' : ''}`"
         :style="cardStyles"
         @click="handleClick"
     >
@@ -29,7 +29,8 @@
                     v-for="(a, i) in card.attacks"
                     :key="`attk-${i}`"
                     class="attack"
-                    @click="showDetails && showAttackDetails(i)"
+                    :style="isInteractive ? `width: ${1.2 * size}rem` : ''"
+                    @click="isInteractive && onAttackTrigger(a, i)"
                 >
                     <div>
                         <p
@@ -67,7 +68,7 @@
 <script lang="ts">
 import Swal from "sweetalert2";
 import Vue, { PropType } from "vue";
-import { ICard } from "~/@types";
+import { IAttack, ICard } from "~/@types";
 
 export default Vue.extend({
     props: {
@@ -98,6 +99,10 @@ export default Vue.extend({
         customStyle: {
             type: String,
             default: "",
+        },
+        isInteractive: {
+            type: Boolean,
+            default: false,
         },
     },
     computed: {
@@ -131,6 +136,9 @@ export default Vue.extend({
                 "info"
             );
         },
+        onAttackTrigger(attack: IAttack, index: number) {
+            this.$emit("onAttackTrigger", attack, index);
+        },
     },
 });
 </script>
@@ -159,17 +167,40 @@ export default Vue.extend({
     grid-template-columns: 4fr 1fr;
 }
 
-/*.detailed-card .attack {
-    cursor: pointer;
-    transition: background 0.25s ease-in-out;
-    padding: 0.25rem;
-    margin: 0.25rem 0;
-    border-radius: 5px;
+.interactive-card .attack-stats {
+    align-items: flex-end;
 }
 
-.detailed-card .attack:hover {
-    background: rgba(255, 255, 255, 0.375);
-} */
+.interactive-card .attack-stats p {
+    font-size: 100%;
+}
+
+.interactive-card .card-content {
+    margin: 0;
+    margin-top: 3rem;
+}
+
+.interactive-card .attack-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.interactive-card .attack {
+    cursor: pointer;
+    box-shadow: 0 -5px 20px rgba(1, 9, 32, 0.5);
+    transition: background 0.25s ease-in-out;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px var(--light) solid;
+    transition: transform 0.25s ease-in-out;
+}
+
+.interactive-card .attack:hover {
+    transform: scale(1.25);
+}
 
 .attack-container {
     margin-left: 1rem;
@@ -216,7 +247,7 @@ header {
     margin-bottom: 1rem;
     margin-left: 1rem;
     margin-right: 1rem;
-    height: 50%;
+    padding: 2rem 0;
 }
 
 .card-content * {
@@ -241,6 +272,9 @@ header {
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
+
     min-width: 100px;
     min-height: 140px;
 

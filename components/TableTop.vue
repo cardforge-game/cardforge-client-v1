@@ -1,5 +1,17 @@
 <template>
     <div v-if="players" class="table">
+        <div class="card-dialog-perspective">
+            <div class="card-dialog" :style="cardDialogStyles">
+                <Card
+                    v-if="currentActiveCard"
+                    :card="currentActiveCard"
+                    :size="25"
+                    :show-details="true"
+                    :is-interactive="true"
+                    @onAttackTrigger="doAttack"
+                />
+            </div>
+        </div>
         <div class="row top">
             <template v-for="(n, i) in 3">
                 <Card
@@ -76,15 +88,21 @@
 import Vue from "vue";
 
 import connection from "~/connection";
-import { IPlayer } from "~/@types";
+
+import { IAttack, IPlayer } from "~/@types";
 
 export default Vue.extend({
     data() {
         return {
             turnInitiated: false,
+            showCardDialog: false,
+            attackTarget: null as string | null,
         };
     },
     computed: {
+        currentActiveCard() {
+            return connection.currentPlayer?.activeCard;
+        },
         displayPlayers(): IPlayer[] {
             if (connection.currentPlayer) {
                 const copy = [...this.players];
@@ -105,6 +123,11 @@ export default Vue.extend({
         players(): IPlayer[] {
             return Object.values(connection.state.players || []);
         },
+        cardDialogStyles(): string {
+            return `
+                transform: rotateY(${this.showCardDialog ? -15 : -90}deg);
+            `;
+        },
     },
     methods: {
         onCardClick(index: number) {
@@ -116,7 +139,12 @@ export default Vue.extend({
                 connection.currentPlayer?.id ===
                 connection.state.activePlayerID;
 
-            if (clickedSelf && selfTurn) {
+            if (this.turnInitiated && !clickedSelf) {
+                this.turnInitiated = false;
+                alert(`You want to attack ${player.id} ${player.name}`);
+                this.attackTarget = player.id || null;
+                this.showCardDialog = true;
+            } else if (clickedSelf && selfTurn) {
                 alert("You initiated a turn");
                 this.turnInitiated = true;
             }
@@ -127,6 +155,12 @@ export default Vue.extend({
                 this.displayPlayers[index]?.id
             );
         },
+        doAttack(_attack: IAttack, attackIndex: number) {
+            connection.room?.send("attack", {
+                id: this.attackTarget,
+                attackIndex,
+            });
+        },
     },
 });
 </script>
@@ -134,7 +168,6 @@ export default Vue.extend({
 <style scoped>
 .active {
     border: 5px solid var(--success);
-    border-image: url(https://devforum.roblox.com/uploads/default/original/4X/6/4/0/64002c643ab06b06129b99c94ed4ba8d11bd0bcb.gif);
     animation: pulse 1.5s infinite;
 }
 

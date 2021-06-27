@@ -1,9 +1,62 @@
 import Vue from "vue";
+import { Howl } from "howler";
 import { Client as ColyseusClient, Room } from "colyseus.js";
 import Swal from "sweetalert2";
 
 import { ROOM_NAME } from "./constants";
-import { IPlayer, IRoom } from "~/@types";
+import { IPlayer, IRoom, IAttack } from "~/@types";
+
+interface ISoundState {
+    [key: number]: Howl;
+    play(): number;
+}
+
+interface IAttackData {
+    attacker: IPlayer;
+    reciever: IPlayer;
+    attack: IAttack;
+}
+
+const SoundService = {
+    buy: new Howl({
+        src: "/sounds/buy.wav",
+        volume: 1.6,
+    }),
+    damage: new Howl({
+        src: "/sounds/damage.wav",
+        volume: 0.9,
+    }),
+    changeCard: new Howl({
+        src: "./sounds/changeCard.ogg",
+    }),
+    placeCard: new Howl({
+        src: "/sounds/placeCard.ogg",
+    }),
+    hover: {
+        0: new Howl({
+            src: "/sounds/hover0.ogg",
+        }),
+        1: new Howl({
+            src: "/sounds/hover1.ogg",
+        }),
+        2: new Howl({
+            src: "/sounds/hover2.ogg",
+        }),
+        3: new Howl({
+            src: "/static/sounds/hover3.ogg",
+        }),
+        play() {
+            const randomIndex = Math.floor(Math.random() * 4);
+            const audio = this[randomIndex] as any;
+            return audio.play();
+        },
+    } as ISoundState,
+};
+
+// @ts-ignore
+window.ss = SoundService;
+
+export { SoundService };
 
 export default new Vue({
     data() {
@@ -97,6 +150,11 @@ export default new Vue({
                     if (error.toLowerCase().includes("name already in use")) {
                         this.$router.push("/");
                     }
+                });
+                this.room.onMessage("attacked", (attackData: IAttackData) => {
+                    SoundService.damage.play();
+                    // Effects / Animations
+                    console.log(attackData);
                 });
             }
         },

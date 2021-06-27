@@ -84,7 +84,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { ICard } from "~/@types";
-import connection from "~/connection";
+import connection, { SoundService } from "~/connection";
 
 export default Vue.extend({
     data() {
@@ -101,12 +101,15 @@ export default Vue.extend({
     methods: {
         buyCard(id: string) {
             connection.room?.send("buyCard", { id });
+            SoundService.buy.play();
         },
         addToDeck(index: number) {
             connection.room?.send("addCardToDeck", { index });
+            SoundService.changeCard.play();
         },
         addToInv(index: number) {
             connection.room?.send("addCardToInventory", { index });
+            SoundService.changeCard.play();
         },
     },
 });
