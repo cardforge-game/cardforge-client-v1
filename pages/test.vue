@@ -1,33 +1,30 @@
 <template>
-    <main class="deckbuilder">
+    <main  class="deckbuilder">
         <section class="shopInventoryContainer">
             <div class="deckbuilderContent">
                 <h1 class="sectionHeader">
-                    Card Shop
+                    Card Shop 🛒
                 </h1>
                 <div class="cardListing">
-                         <div class="inline-block" v-for="(c,i) in cards" :key="`card-${i}`" >
-                            <span class="cardPrice">Cost: 10</span>
-                            <Card :card="c" size=10 ></Card>
+                         <div class="cardItem" v-for="(c,i) in cards" :key="`card-${i}`" >
+                            <span class="cardPrice">Cost: {{c.cardCost}}</span>
+                            <Card @click="buyCard(c.id)" :card="c" size=10 ></Card>
                          </div>
                 </div>
             </div>
             <div class="deckbuilderContent">
                 <h1 class="sectionHeader">
-                    Inventory
+                    Inventory 🎒
                 </h1>
                  <div class="cardListing">
-                    <draggable 
-                    group="cards"  v-model="inventory">
-                         <Card v-for="(c,i) in inventory" :key="`card-${i}`" :card="c" size=10></Card>
-                    </draggable>
+                   
                 </div>
             </div>
         </section>
         <section class="deck">
             <div class="deckbuilderContent">
                 <h1 class="sectionHeader">
-                    Active Deck
+                    Active Deck ⚡
                 </h1>
             </div>
         </section>
@@ -37,6 +34,7 @@
 </template>
 
 <script>
+import connection from "~/connection"
 export default {
     data(){
         return{
@@ -45,12 +43,23 @@ export default {
         }
     },
     methods:{
+        buyCard(id){
+            connection.room?.send("buyCard",id)
+        },
+        addToDeck(index){
+            connection.room?.send("addCardToDeck",index)
+        },
+        addToInv(index){
+           connection.room?.send("addCardToDeck",index)
+        }
     },
     mounted(){
         for(let i = 0; i < 5;i++){
             this.cards.push({
+                id:"xd",
                 name:"Senko Sanko " + i,
                 health:100,
+                cardCost:2,
                 imgURL:"https://i.pinimg.com/originals/46/ba/83/46ba83a5a0266908308541742c53abd3.jpg",
                 attacks:[
                     {name:"Tail Whip",damage:20},
@@ -62,13 +71,26 @@ export default {
 }
 </script>
 
-<style>
-    .inline-block{
-        display: inline-block
+<style scoped>
+    .card:hover{
+        border: var(--primary-dark) solid 3px;
+    }
+    .card{
+        transition: border 0.175s ease-in-out;
+    }
+    .cardItem{
+        display: inline-block;
+        margin-top: 2%;
+        color:white;
+    }
+    .cardItem span{
+        padding-left:1rem;
+         padding-right:1rem;
+        color:white;
     }
     .cardPrice{
 
-        background-color:green;
+        background-color:var(--success-dark);
     }
     .cardListing{
         max-height: 35vh;

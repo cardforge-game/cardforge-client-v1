@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :style="`width:${this.size}vw;height:${this.size * 1.4}vw;background:linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${card.imgURL});background-size:cover;
+  <div @click="handleClick" class="card" :style="`width:${this.size}vw;height:${this.size * 1.4}vw;background:linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${card.imgURL});background-size:cover;
     background-position: center;`">
        <div class="cardHeader">
            <h1 class="cardTitle">{{card.name}}</h1>
@@ -27,6 +27,11 @@ export default {
         size:String,
         card:Object
     },
+    methods:{
+        handleClick(){
+            this.$emit("click")
+        }
+    }
     
 }
 
@@ -84,6 +89,7 @@ export default {
 
 }
 .card{
+    border: white solid 3px;
     min-width:100px;
     min-height:140px;
     text-align: center;
