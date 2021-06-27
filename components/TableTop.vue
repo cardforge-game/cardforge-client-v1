@@ -24,6 +24,9 @@
                     :class="{ active: isActivePlayer(i + 5) }"
                     :size="9"
                     :graphic-only="true"
+                    :custom-style="
+                        isEnemy(i + 5) ? `border-color: var(--danger);` : ''
+                    "
                     @click="onCardClick(i + 5)"
                 />
                 <p
@@ -48,6 +51,9 @@
                     :class="{ active: isActivePlayer(i + 3) }"
                     :size="9"
                     :graphic-only="true"
+                    :custom-style="
+                        isEnemy(i + 3) ? `border-color: var(--danger);` : ''
+                    "
                     @click="onCardClick(i + 3)"
                 />
                 <p
@@ -69,6 +75,9 @@
                     :class="{ active: isActivePlayer(i) }"
                     :size="9"
                     :graphic-only="true"
+                    :custom-style="
+                        isEnemy(i) ? `border-color: var(--danger);` : ''
+                    "
                     @click="onCardClick(i)"
                 />
                 <p
@@ -141,11 +150,11 @@ export default Vue.extend({
 
             if (this.turnInitiated && !clickedSelf) {
                 this.turnInitiated = false;
-                alert(`You want to attack ${player.id} ${player.name}`);
+                alert(`You want to attack ${player.name}.`);
                 this.attackTarget = player.id || null;
                 this.showCardDialog = true;
             } else if (clickedSelf && selfTurn) {
-                alert("You initiated a turn");
+                alert("You initiated a turn.");
                 this.turnInitiated = true;
             }
         },
@@ -156,10 +165,22 @@ export default Vue.extend({
             );
         },
         doAttack(_attack: IAttack, attackIndex: number) {
+            this.showCardDialog = false;
             connection.room?.send("attack", {
                 id: this.attackTarget,
                 attackIndex,
             });
+        },
+        isEnemy(index: number) {
+            const player: IPlayer = this.displayPlayers[index];
+
+            const selfTurn =
+                connection.currentPlayer?.id ===
+                connection.state.activePlayerID;
+
+            const isSelf = player.id === connection.currentPlayer?.id;
+
+            return selfTurn && !isSelf;
         },
     },
 });
@@ -228,6 +249,14 @@ export default Vue.extend({
 
 .row.mid {
     justify-content: space-between;
+}
+
+.card-dialog-perspective {
+    perspective: 1000px;
+}
+
+.card-dialog {
+    transition: transform 0.25s ease-in-out;
 }
 
 @media only screen and (min-width: 1000px) {

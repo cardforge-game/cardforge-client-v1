@@ -43,7 +43,7 @@ const SoundService = {
             src: "/sounds/hover2.ogg",
         }),
         3: new Howl({
-            src: "/static/sounds/hover3.ogg",
+            src: "/sounds/hover3.ogg",
         }),
         play() {
             const randomIndex = Math.floor(Math.random() * 4);

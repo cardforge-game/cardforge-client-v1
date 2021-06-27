@@ -3,6 +3,7 @@
         :class="`card ${isInteractive ? 'interactive-card' : ''}`"
         :style="cardStyles"
         @click="handleClick"
+        @mouseenter="handleMouseEnter"
     >
         <header>
             <h1
@@ -128,6 +129,9 @@ export default Vue.extend({
     methods: {
         handleClick() {
             this.$emit("click");
+        },
+        handleMouseEnter() {
+            this.$emit("mouseenter");
         },
         showAttackDetails(i: number) {
             Swal.fire(
@@ -287,6 +291,8 @@ header {
 
     --rotate: 0deg;
     transform: rotate(var(--rotate));
+
+    transition: border-color 0.25s ease-in-out;
 }
 
 hr {
