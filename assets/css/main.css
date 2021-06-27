@@ -1,3 +1,5 @@
+@import url("http://fonts.cdnfonts.com/css/segoe-ui-4");
+
 :root {
     font-size: 16px;
     --primary: #70a1ff;
@@ -94,15 +96,25 @@ button:active {
 .button-group button {
     border-radius: 0;
     margin: 0 -2.5px;
-}
-
-.button-group button:first-of-type {
+} .button-group button:first-of-type {
     border-radius: 10px 0 0 10px;
-}
-
-.button-group button:last-of-type {
+} .button-group button:last-of-type {
     border-radius: 0 10px 10px 0;
 }
+
+.button-group-large button {
+    border-width: .16rem;
+    border-radius: 0;
+    margin: 0 -2.5px;
+    padding: 13px;
+}
+.button-group-large button:first-of-type {
+    border-radius: 15px 0 0 15px;
+}
+.button-group-large button:last-of-type {
+    border-radius: 0 15px 15px 0;
+}
+
 
 .selectable:hover {
     cursor: pointer;
@@ -113,4 +125,91 @@ button:active {
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
+}
+
+.hero-section-1 {
+    height: 60%;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hero-section-2 {
+    height: 60%;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    background-color: rgb(47, 54, 66);
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+}
+
+.hero-section-2-small {
+    display: flex;
+    padding: 30px;
+    /* height: 40%; */
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    background-color: rgb(47, 54, 66);
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+    justify-content: center;
+}
+
+.hero-column-right {
+    flex: 50%;
+    padding: 25px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+}
+
+.hero-column-left {
+    flex: 50%;
+    padding: 25px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    
+}
+.title {
+    font-size: 4rem;
+    font-family: "Segoe UI", sans-serif;
+    font-style: bold;
+}
+
+.image {
+    max-height: 80%;
+    max-width: 80%;
+    animation-duration: 2s;
+    animation-name: fly-in;
+}
+
+
+/* .typewriter {
+    overflow: hidden;
+    border-right: .05em solid rgb(95, 166, 122);
+    letter-spacing: 0rem;
+    justify-content: flex-end;
+    animation: 
+        typing 1.5s steps(40, end), 
+        cursor-blink 0.75s step-end infinite;
+
+} @keyframes typing {
+    from { width: 0% }
+    to { width: 100% }
+} @keyframes cursor-blink {
+    from, to { border-color: transparent }
+    50% { border-color: rgb(95, 166, 122); }
+} */
+
+.subtitle {
+    font-size: 1.2rem;
 }

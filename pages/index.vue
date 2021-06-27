@@ -17,7 +17,55 @@
             </div>
         </portal>
 
-        <section class="page">Homepage</section>
+        <portal to="start">
+            <div class="button-group-large">
+                <button
+                    style="--normal-color: var(--success); font-size: 200%"
+                    @click="initGame('createGame')"
+                >
+                    Start Game
+                </button>
+                <button
+                    style="--normal-color: var(--primary); font-size: 200%"
+                    @click="initGame('joinGame')"
+                >
+                    Join Game
+                </button>
+            </div>
+        </portal>
+
+        <section class="page">
+            <div class="hero-section-1">
+                <div class="hero-column-right">
+                    <div style="text-align: right">
+                        <h1 class="title typewriter">CardForge</h1>
+                        <p class="subtitle">
+                            The card game that puts you at the center.
+                        </p>
+                    </div>
+                </div>
+                <div class="hero-column-left">
+                    <img class="image slide" src="@/assets/images/cards.svg" />
+                </div>
+            </div>
+
+            <div class="hero-section-2-small" style="padding-bottom: 0px">
+                <h5 style="color: white">
+                    Start a game by creating a room, or enter someone else's
+                    room with their join code!
+                </h5>
+            </div>
+            <div class="hero-section-2-small">
+                <portal-target name="start"></portal-target>
+            </div>
+
+            <div class="hero-section-1">
+                <div class="hero-column-right">zxcvzxcvzxcv</div>
+                <div class="hero-column-left">zxcvzxcvzxcv</div>
+                <div class="hero-column-right">zxcvzxcvzxcv</div>
+                <div class="hero-column-left">zxcvzxcvzxcv</div>
+            </div>
+        </section>
     </main>
 </template>
 
