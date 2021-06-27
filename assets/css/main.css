@@ -5,7 +5,7 @@
     --primary-light: #a7c6ff;
     --success: #7bed9f;
     --success-dark: #2ed573;
-    --success-darker:rgb(108, 163, 131);
+    --success-darker: rgb(108, 163, 131);
     --danger: #ff6b81;
     --danger-dark: #ff4757;
     --warning: #eccc68;
@@ -105,4 +105,11 @@ button:active {
 
 .selectable:hover {
     cursor: pointer;
+}
+
+.unhighlightable {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }

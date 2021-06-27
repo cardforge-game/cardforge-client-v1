@@ -25,7 +25,7 @@
                 :size="15"
                 :rotation="getCardRotation(i)"
                 :show-details="true"
-                :style="`z-index: ${i + 100};`"
+                :custom-style="`z-index: ${i + 100};`"
             />
         </div>
     </footer>
@@ -62,7 +62,7 @@ footer {
     justify-self: flex-end;
     align-self: stretch;
     position: relative;
-    height: 3rem;
+    height: 2.5rem;
 }
 
 .deck {

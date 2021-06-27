@@ -1,7 +1,12 @@
 <template>
     <main>
-        <section class="cardPreview">
-            <Card :size="30" :card="cardData"></Card>
+        <section class="card-preview">
+            <details open>
+                <summary class="selectable unhighlightable bold h4">
+                    Card Preview
+                </summary>
+                <Card :size="30" :card="cardData" :show-details="true" />
+            </details>
         </section>
         <section>
             <form @submit.prevent="publishCard">
@@ -14,7 +19,7 @@
                             <input
                                 v-model="cardData.name"
                                 placeholder="Lord of Darkness"
-                                maxlength="25"
+                                maxlength="12"
                                 required
                             />
                         </div>
@@ -22,7 +27,7 @@
                         <div class="field">
                             <label>Card Health</label>
                             <input
-                                v-model="cardData.health"
+                                v-model.number="cardData.health"
                                 type="number"
                                 placeholder="10"
                                 required
@@ -80,7 +85,7 @@
                     <div class="field">
                         <label>Attack Description</label>
                         <textarea
-                            v-model="a.desc"
+                            v-model.lazy="a.desc"
                             maxlength="100"
                             :placeholder="`${
                                 cardData.name || 'someone'
@@ -102,14 +107,20 @@
                 <div class="subsection">
                     <div class="button-group">
                         <button
-                            style="--normal-color: var(--primary-dark)"
+                            style="
+                                --normal-color: var(--primary-dark);
+                                --active-color: var(--light);
+                            "
                             @click="previewCard"
                         >
                             Preview Card
                         </button>
                         <button
                             type="submit"
-                            style="--normal-color: var(--success-darker)"
+                            style="
+                                --normal-color: var(--success-darker);
+                                --active-color: var(--light);
+                            "
                         >
                             Publish Card
                         </button>
@@ -151,6 +162,7 @@ export default Vue.extend({
                     icon: "success",
                     toast: true,
                 });
+
                 this.cardData = {
                     name: "",
                     health: 0,
@@ -177,14 +189,31 @@ main {
     align-items: stretch;
 }
 main section {
-    margin: 3rem 3rem;
+    margin: 1.5rem 1.5rem;
     flex: 1;
     overflow-y: auto;
 }
-@media only screen and (max-width: 700px) {
+
+.card-preview {
+    text-align: center;
+}
+
+.card-preview summary {
+    background: var(--primary-dark);
+    color: var(--light);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.card {
+    text-align: left;
+    display: inline-block;
+    margin-top: 2rem;
+}
+
+@media only screen and (max-width: 1100px) {
     main {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
+        flex-direction: column;
     }
 }
 

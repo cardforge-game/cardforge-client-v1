@@ -12,11 +12,19 @@
             background-repeat: no-repeat;
             ${rotation !== 0 ? `transform: rotate(${rotation}deg);` : ''}
             ${shadow ? 'box-shadow: 0 -5px 20px rgba(1, 9, 32, 0.5);' : ''}
-            ${style}
+            ${customStyle}
         `"
     >
         <header>
-            <h1 class="card-title">{{ card.name }}</h1>
+            <h1
+                class="card-title"
+                :style="`
+                    font-size: max(${1.25 * size}px, ${
+                    showDetails ? 1.5 : 1.25
+                }rem);`"
+            >
+                {{ card.name }}
+            </h1>
 
             <span class="card-health">
                 <b class="small">HP</b>
@@ -35,11 +43,22 @@
                     @click="showDetails && showAttackDetails(i)"
                 >
                     <div>
-                        <p class="outline">{{ a.name }}</p>
-                        <small v-if="showDetails">
+                        <p
+                            class="outline"
+                            :style="`font-size: max(${size}px, 1rem);`"
+                        >
+                            {{ a.name }}
+                        </p>
+                        <small
+                            v-if="showDetails"
+                            :style="`font-size: max(${
+                                0.6 * size
+                            }px,  0.75rem);`"
+                            class="attack-desc"
+                        >
                             {{
-                                a.desc.length > 45
-                                    ? `${a.desc.substring(0, 45)}...`
+                                a.desc.length > 30
+                                    ? `${a.desc.substring(0, 90)}...`
                                     : a.desc
                             }}
                         </small>
@@ -87,7 +106,7 @@ export default Vue.extend({
             type: Boolean,
             default: false,
         },
-        style: {
+        customStyle: {
             type: String,
             default: "",
         },
@@ -120,6 +139,10 @@ export default Vue.extend({
     font-weight: bold;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
         Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.attack-desc {
+    text-overflow: ellipsis;
 }
 
 .attack {
