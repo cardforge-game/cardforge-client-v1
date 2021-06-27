@@ -58,11 +58,31 @@
             <div class="hero-section-2-small">
                 <portal-target name="start"></portal-target>
             </div>
-
+            <div class="hero-section-1-small" style="padding-bottom: 0px">
+                <div class="hero-column-center">
+                    <h1>How to Play</h1>
+                </div>
+            </div>
             <div class="hero-section-1">
-                <div class="hero-column-right">zxcvzxcvzxcv</div>
+                <div class="hero-column-right">
+                    <h4>Joining a Game Room</h4>
+                </div>
+                <div class="hero-column-left">
+                    To create a game room, you can click the
+                    <a @click="initGame('createGame')">"Start Game"</a> button
+                    above.
+                </div>
+                <div class="hero-column-right">
+                    <h4>Phase 1: Creation</h4>
+                </div>
                 <div class="hero-column-left">zxcvzxcvzxcv</div>
-                <div class="hero-column-right">zxcvzxcvzxcv</div>
+                <div class="hero-column-right">
+                    <h4>Phase 2: Deck Building</h4>
+                </div>
+                <div class="hero-column-left">zxcvzxcvzxcv</div>
+                <div class="hero-column-right">
+                    <h4>Phase 3: Fighting</h4>
+                </div>
                 <div class="hero-column-left">zxcvzxcvzxcv</div>
             </div>
         </section>

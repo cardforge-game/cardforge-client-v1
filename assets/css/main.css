@@ -128,7 +128,7 @@ button:active {
 }
 
 .hero-section-1 {
-    height: 60%;
+    height: 50%;
     width: 100%;
     top: 50%;
     left: 50%;
@@ -149,12 +149,25 @@ button:active {
 
 .hero-section-2-small {
     display: flex;
-    padding: 30px;
+    padding: 2.7vw;
     /* height: 40%; */
     width: 100%;
     top: 50%;
     left: 50%;
     background-color: rgb(47, 54, 66);
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+    justify-content: center;
+}
+
+.hero-section-1-small {
+    display: flex;
+    padding: 30px;
+    /* height: 40%; */
+    width: 100%;
+    top: 50%;
+    left: 50%;
     display: flex;
     flex-wrap: wrap;
     color: white;
@@ -168,6 +181,8 @@ button:active {
     justify-content: flex-end;
     align-items: center;
     align-content: center;
+    border: 1px solid black;
+    border: 1px solid black;
 }
 
 .hero-column-left {
@@ -177,7 +192,7 @@ button:active {
     justify-content: flex-start;
     align-items: center;
     align-content: center;
-    
+    border: 1px solid black;    
 }
 .title {
     font-size: 4rem;
