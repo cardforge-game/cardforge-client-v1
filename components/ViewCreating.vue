@@ -12,7 +12,15 @@
                 <summary class="selectable unhighlightable bold h4">
                     Previous Cards
                 </summary>
-                <div v-for="(card, i) in previousCards" :key="i"></div>
+                <div
+                    v-for="(card, i) in currentCache"
+                    :key="i"
+                    class="previous-card"
+                >
+                    <span class="h4">{{ card.name }}</span>
+
+                    <button @click="loadCard(card)">Load Card</button>
+                </div>
             </details>
 
             <details open>
@@ -174,7 +182,7 @@ export default Vue.extend({
             acceptedCards: 0,
             currentCache: JSON.parse(
                 localStorage.getItem("cachedCards") || "[]"
-            ),
+            ) as IPreviewCard[],
         };
     },
     mounted() {
@@ -223,6 +231,9 @@ export default Vue.extend({
         previewCard() {
             connection.room?.send("previewCard", this.cardData);
         },
+        loadCard(card: IPreviewCard) {
+            this.cardData = JSON.parse(JSON.stringify(card));
+        },
     },
 });
 </script>
@@ -243,11 +254,13 @@ main section {
 }
 
 details:first-of-type summary {
-    border-radius: 10px 10px 0 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 details:last-of-type summary {
-    border-radius: 0 0 10px 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .card-preview summary {
@@ -261,6 +274,21 @@ details:last-of-type summary {
     text-align: left;
     display: inline-flex;
     margin-top: 2rem;
+}
+
+.previous-card {
+    padding: 1rem;
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+}
+
+.previous-card .h4 {
+    color: var(--light);
+}
+
+.previous-card button {
+    margin-left: auto;
 }
 
 @media only screen and (max-width: 1100px) {
