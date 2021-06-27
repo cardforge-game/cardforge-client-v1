@@ -25,7 +25,7 @@ export default new Vue({
                 this.room = await this.client.create<IRoom>(ROOM_NAME, {
                     name: username,
                 });
-                this.initEvents()
+                this.initEvents();
                 return true;
             } catch (e) {
                 Swal.fire(
@@ -42,7 +42,7 @@ export default new Vue({
                 this.room = await this.client.joinById<IRoom>(roomId, {
                     name: username,
                 });
-                this.initEvents()
+                this.initEvents();
                 return true;
             } catch (e) {
                 Swal.fire(
@@ -54,24 +54,22 @@ export default new Vue({
             }
         },
 
-        initEvents(){
-            this.room?.onStateChange.once((state) => {
-                this.state = state
-            });
-            this.room?.onStateChange((state) =>{
-                this.state = JSON.parse(JSON.stringify(state))
-            })
-            this.room?.onMessage("error", async (error: string) => {
-                await Swal.fire("Error", error, "error");
+        initEvents() {
+            if (this.room) {
+                this.room.onStateChange.once((state) => {
+                    this.state = state;
+                });
+                this.room.onStateChange((state) => {
+                    this.state = JSON.parse(JSON.stringify(state));
+                });
+                this.room.onMessage("error", async (error: string) => {
+                    await Swal.fire("Error", error, "error");
 
-                if (error.toLowerCase().includes("name already in use")) {
-                    this.$router.push("/");
-                }
-            });
-
-        }
-      
+                    if (error.toLowerCase().includes("name already in use")) {
+                        this.$router.push("/");
+                    }
+                });
+            }
+        },
     },
 });
-
-

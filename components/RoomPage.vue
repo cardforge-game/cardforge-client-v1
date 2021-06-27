@@ -1,3 +1,5 @@
 <template>
-    <section class="page"></section>
+    <section class="page">
+        <TableTop :players="players" />
+    </section>
 </template>

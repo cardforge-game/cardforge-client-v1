@@ -2,106 +2,104 @@
     <main class="deckbuilder">
         <section class="shopInventoryContainer">
             <div class="deckbuilderContent">
-                <h1 class="sectionHeader">
-                    Card Shop
-                </h1>
+                <h1 class="sectionHeader">Card Shop</h1>
                 <div class="cardListing">
-                         <div class="inline-block" v-for="(c,i) in cards" :key="`card-${i}`" >
-                            <span class="cardPrice">Cost: 10</span>
-                            <Card :card="c" size=10 ></Card>
-                         </div>
+                    <div
+                        v-for="(c, i) in cards"
+                        :key="`card-${i}`"
+                        class="inline-block"
+                    >
+                        <span class="cardPrice">Cost: 10</span>
+                        <Card :card="c" :size="12.5" :rotation="0"></Card>
+                    </div>
                 </div>
             </div>
             <div class="deckbuilderContent">
-                <h1 class="sectionHeader">
-                    Inventory
-                </h1>
-                 <div class="cardListing">
-                    <draggable 
-                    group="cards"  v-model="inventory">
-                         <Card v-for="(c,i) in inventory" :key="`card-${i}`" :card="c" size=10></Card>
+                <h1 class="sectionHeader">Inventory</h1>
+                <div class="cardListing">
+                    <draggable v-model="inventory" group="cards">
+                        <Card
+                            v-for="(c, i) in inventory"
+                            :key="`card-${i}`"
+                            :card="c"
+                            size="10"
+                        ></Card>
                     </draggable>
                 </div>
             </div>
         </section>
         <section class="deck">
             <div class="deckbuilderContent">
-                <h1 class="sectionHeader">
-                    Active Deck
-                </h1>
+                <h1 class="sectionHeader">Active Deck</h1>
             </div>
         </section>
-
-
     </main>
 </template>
 
 <script>
 export default {
-    data(){
-        return{
-            cards:[],
-            inventory:[],
-        }
+    data() {
+        return {
+            cards: [],
+            inventory: [],
+        };
     },
-    methods:{
-    },
-    mounted(){
-        for(let i = 0; i < 5;i++){
+    mounted() {
+        for (let i = 0; i < 5; i++) {
             this.cards.push({
-                name:"Senko Sanko " + i,
-                health:100,
-                imgURL:"https://i.pinimg.com/originals/46/ba/83/46ba83a5a0266908308541742c53abd3.jpg",
-                attacks:[
-                    {name:"Tail Whip",damage:20},
-                    {name:"Heal Smack",heal:40,damage:10}
-                ]
-            })
+                name: "Senko Sanko " + i,
+                health: 100,
+                imgURL: "https://i.pinimg.com/originals/46/ba/83/46ba83a5a0266908308541742c53abd3.jpg",
+                attacks: [
+                    { name: "Tail Whip", damage: 20 },
+                    { name: "Heal Smack", heal: 40, damage: 10 },
+                ],
+            });
         }
-    }
-}
+    },
+    methods: {},
+};
 </script>
 
 <style>
-    .inline-block{
-        display: inline-block
-    }
-    .cardPrice{
-
-        background-color:green;
-    }
-    .cardListing{
-        max-height: 35vh;
-        overflow:scroll;
-        overflow-x:hidden
-    }
-    .cardListing .card{
-        margin:1%;
-    }
-    .deckbuilderContent{
-        background-color:#ACC6D3;
-    }
-    .shopInventoryContainer{
-        display:grid;
-        grid-template-rows: 1fr 1fr;
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    .deckbuilder{
-          margin-left:2rem;
-          margin-right:2rem;
-          margin-top:1rem;
-          margin-bottom:1rem;
-          min-width: 80vw;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-template-rows:1fr;
-          gap:2vw;
-    }
-    .sectionHeader{
-          margin-left:2em;
-          margin-top:1em;
-          font-size: max(20px,2vw);
-          font-weight:bold;
-    }
+.inline-block {
+    display: inline-block;
+}
+.cardPrice {
+    background-color: green;
+}
+.cardListing {
+    max-height: 35vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.cardListing .card {
+    margin: 1%;
+}
+.deckbuilderContent {
+    background-color: #acc6d3;
+}
+.shopInventoryContainer {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+.deckbuilder {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    min-width: 80vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 2vw;
+}
+.sectionHeader {
+    margin-left: 2em;
+    margin-top: 1em;
+    font-size: max(20px, 2vw);
+    font-weight: bold;
+}
 </style>

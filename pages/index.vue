@@ -44,9 +44,9 @@ export default Vue.extend({
         },
 
         async createGame(username: string) {
-            if (await connection.createRoom(username)) {
+            if ((await connection.createRoom(username)) && connection.room) {
                 connection.temp.host = true;
-                this.$router.push(`/c/${connection.room?.id}`);
+                this.$router.push(`/c/${connection.room.id}`);
             }
         },
         async joinGame(username: string) {
