@@ -33,4 +33,5 @@ export interface IRoom {
     players: Record<string, IPlayer>;
     currentRound: number;
     cardLibrary: ICard[];
+    activePlayerID: string;
 }

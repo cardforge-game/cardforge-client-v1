@@ -3,6 +3,7 @@
         <span v-if="!connection.currentPlayer.activeCard" class="helpText">
             Click on a card from your hand to play it!
         </span>
+
         <div class="deck">
             <Card
                 v-for="(card, i) in connection.currentPlayer.deck"

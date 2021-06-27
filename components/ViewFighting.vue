@@ -2,12 +2,11 @@
     <main>
         <MoneyIndicator />
 
-        <TableTop
-            v-if="connection.state.players"
-            :players="Object.values(connection.state.players)"
-            :active-id="connection.state.activePlayerID"
-        />
+        <div v-if="activePlayer" class="info-bar">
+            <b class="h4">It's {{ activePlayer.name }}'s turn!</b>
+        </div>
 
+        <TableTop />
         <PlayerHand />
     </main>
 </template>
@@ -21,11 +20,18 @@ export default Vue.extend({
         connection() {
             return connection;
         },
+        activePlayer() {
+            return connection.state.players?.[connection.state.activePlayerID];
+        },
     },
 });
 </script>
 
 <style scoped>
+.info-bar {
+    padding: 1rem;
+}
+
 main {
     align-items: center;
     overflow: hidden;

@@ -110,11 +110,7 @@ export default Vue.extend({
                         ? "linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),"
                         : "linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),"
                 } url(${this.card.imgURL});
-                ${
-                    this.rotation !== 0
-                        ? `transform: rotate(${this.rotation}deg);`
-                        : ""
-                }
+                ${this.rotation !== 0 ? `--rotate: ${this.rotation}deg;` : ""}
                 ${
                     this.shadow
                         ? "box-shadow: 0 -5px 20px rgba(1, 9, 32, 0.5);"
@@ -247,11 +243,16 @@ header {
 .card {
     min-width: 100px;
     min-height: 140px;
+
     border-radius: 10px;
     border: 2px solid var(--light);
+
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    --rotate: 0deg;
+    transform: rotate(var(--rotate));
 }
 
 hr {

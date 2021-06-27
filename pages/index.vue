@@ -17,7 +17,7 @@
             </div>
         </portal>
 
-        <section class="page">hii</section>
+        <section class="page">Homepage</section>
     </main>
 </template>
 

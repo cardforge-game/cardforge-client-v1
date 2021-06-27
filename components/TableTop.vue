@@ -1,5 +1,5 @@
 <template>
-    <div class="table">
+    <div v-if="players" class="table">
         <div class="row top">
             <template v-for="(n, i) in 3">
                 <Card
@@ -9,9 +9,10 @@
                     "
                     :key="i + 5"
                     :card="displayPlayers[i + 5].activeCard"
-                    :class="{ active: displayPlayers[i + 5].id === activeID }"
+                    :class="{ active: isActivePlayer(i + 5) }"
                     :size="9"
                     :graphic-only="true"
+                    @click="onCardClick(i + 5)"
                 />
                 <p
                     v-else-if="displayPlayers[i + 5]"
@@ -32,9 +33,10 @@
                     "
                     :key="i + 3"
                     :card="displayPlayers[i + 3].activeCard"
-                    :class="{ active: displayPlayers[i + 3].id === activeID }"
+                    :class="{ active: isActivePlayer(i + 3) }"
                     :size="9"
                     :graphic-only="true"
+                    @click="onCardClick(i + 3)"
                 />
                 <p
                     v-else-if="displayPlayers[i + 3]"
@@ -52,9 +54,10 @@
                     v-if="displayPlayers[i] && displayPlayers[i].activeCard"
                     :key="i"
                     :card="displayPlayers[i].activeCard"
-                    :class="{ active: displayPlayers[i].id === activeID }"
+                    :class="{ active: isActivePlayer(i) }"
                     :size="9"
                     :graphic-only="true"
+                    @click="onCardClick(i)"
                 />
                 <p
                     v-else-if="displayPlayers[i]"
@@ -70,21 +73,16 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from "vue";
+import Vue from "vue";
+
 import connection from "~/connection";
 import { IPlayer } from "~/@types";
 
 export default Vue.extend({
-    props: {
-        players: {
-            type: Array as PropType<IPlayer[]>,
-            required: true,
-        },
-        activeID: {
-            type: String,
-            required: false,
-            default: "",
-        },
+    data() {
+        return {
+            turnInitiated: false,
+        };
     },
     computed: {
         displayPlayers(): IPlayer[] {
@@ -94,7 +92,6 @@ export default Vue.extend({
                 const self = copy.findIndex(
                     (p) => p.id === connection.currentPlayer?.id
                 );
-                console.log(self);
 
                 if (copy.length > 1) {
                     [copy[self], copy[1]] = [copy[1], copy[self]];
@@ -105,14 +102,59 @@ export default Vue.extend({
                 return this.players;
             }
         },
+        players(): IPlayer[] {
+            return Object.values(connection.state.players || []);
+        },
+    },
+    methods: {
+        onCardClick(index: number) {
+            const player: IPlayer = this.displayPlayers[index];
+
+            const clickedSelf = player.id === connection.currentPlayer?.id;
+
+            const selfTurn =
+                connection.currentPlayer?.id ===
+                connection.state.activePlayerID;
+
+            if (clickedSelf && selfTurn) {
+                alert("You initiated a turn");
+                this.turnInitiated = true;
+            }
+        },
+        isActivePlayer(index: number) {
+            return (
+                connection.state.activePlayerID ===
+                this.displayPlayers[index]?.id
+            );
+        },
     },
 });
 </script>
 
 <style scoped>
 .active {
-    border: 3px solid rgb(76, 145, 91);
+    border: 5px solid var(--success);
+    border-image: url(https://devforum.roblox.com/uploads/default/original/4X/6/4/0/64002c643ab06b06129b99c94ed4ba8d11bd0bcb.gif);
+    animation: pulse 1.5s infinite;
 }
+
+@keyframes pulse {
+    0% {
+        transform: rotate(var(--rotate)) scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+
+    70% {
+        transform: rotate(var(--rotate)) scale(1);
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+
+    100% {
+        transform: rotate(var(--rotate)) scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+
 .no-active-username {
     color: var(--light);
     font-size: 1.5rem;
@@ -157,29 +199,29 @@ export default Vue.extend({
 
 @media only screen and (min-width: 1000px) {
     .row.mid .card:first-of-type::v-deep {
-        transform: rotate(90deg);
+        --rotate: -90deg;
     }
 
     .row.mid .card:last-of-type::v-deep {
-        transform: rotate(-90deg);
+        --rotate: -90deg;
     }
 
     .row.top {
-        transform: rotate(180deg);
+        --rotate: --180deg;
     }
 
     .row.top .no-active-username {
-        transform: rotate(180deg);
+        --rotate: -180deg;
     }
 
     .row.top .card:first-of-type::v-deep,
     .row.bottom .card:first-of-type::v-deep {
-        transform: rotate(45deg);
+        --rotate: 45deg;
     }
 
     .row.top .card:last-of-type,
     .row.bottom .card:last-of-type {
-        transform: rotate(-45deg);
+        --rotate: -45deg;
     }
 }
 </style>

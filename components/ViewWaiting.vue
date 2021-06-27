@@ -20,10 +20,7 @@
             </div>
         </portal>
 
-        <TableTop
-            v-if="connection.state.players"
-            :players="Object.values(connection.state.players)"
-        />
+        <TableTop />
     </section>
 </template>
 
