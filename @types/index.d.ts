@@ -7,13 +7,16 @@ export interface IAttack {
     desc: string;
 }
 
-export interface ICard {
-    id: string;
+export interface IPreviewCard {
     name: string;
     health: number;
-    cardCost: number;
     imgURL: string;
     attacks: IAttack[];
+}
+
+export interface ICard extends IPreviewCard {
+    id: string;
+    cardCost: number;
 }
 
 export interface IPlayer {

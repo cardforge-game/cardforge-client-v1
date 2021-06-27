@@ -57,7 +57,7 @@ export default new Vue({
 
         initEvents() {
             if (this.room) {
-                this.eventRegistered = false
+                this.eventRegistered = false;
                 this.room.onStateChange.once((state) => {
                     this.state = state;
                 });
