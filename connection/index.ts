@@ -18,6 +18,7 @@ export default new Vue({
             client: new ColyseusClient(process.env.SERVER_ENDPOINT),
             room: undefined as Room<IRoom> | void,
             eventRegistered: false,
+            results: {} as Record<string, number>,
             unsynced: {
                 library: [],
             },
@@ -109,6 +110,10 @@ export default new Vue({
                     SoundService.damage.play();
                     // Effects / Animations
                     console.log(attackData);
+                });
+
+                this.room.onMessage("results", (r: Record<string, number>) => {
+                    this.results = r;
                 });
             }
         },

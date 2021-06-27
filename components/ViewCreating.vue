@@ -4,9 +4,16 @@
 
         <section class="card-preview">
             <h1>
-                You've made <b class="h1">{{ acceptedCards.length }}</b> cards.
+                You've made <b class="h1">{{ acceptedCards }}</b> cards.
             </h1>
             <br />
+
+            <details v-if="currentCache.length > 0" open>
+                <summary class="selectable unhighlightable bold h4">
+                    Previous Cards
+                </summary>
+                <div v-for="(card, i) in previousCards" :key="i"></div>
+            </details>
 
             <details open>
                 <summary class="selectable unhighlightable bold h4">
@@ -164,7 +171,10 @@ export default Vue.extend({
                     },
                 ],
             } as IPreviewCard,
-            acceptedCards: [] as IPreviewCard[],
+            acceptedCards: 0,
+            currentCache: JSON.parse(
+                localStorage.getItem("cachedCards") || "[]"
+            ),
         };
     },
     mounted() {
@@ -182,8 +192,19 @@ export default Vue.extend({
                     toast: true,
                 });
 
-                this.acceptedCards.push(
-                    JSON.parse(JSON.stringify(this.cardData))
+                this.acceptedCards++;
+
+                this.currentCache = JSON.parse(
+                    localStorage.getItem("cachedCards") || "[]"
+                );
+
+                if (this.currentCache.length >= 7) {
+                    this.currentCache.shift();
+                }
+
+                localStorage.setItem(
+                    "cachedCards",
+                    JSON.stringify([...this.currentCache, this.cardData])
                 );
 
                 this.cardData = {
@@ -221,11 +242,19 @@ main section {
     text-align: center;
 }
 
+details:first-of-type summary {
+    border-radius: 10px 10px 0 0;
+}
+
+details:last-of-type summary {
+    border-radius: 0 0 10px 10px;
+}
+
 .card-preview summary {
     background: var(--primary-dark);
     color: var(--light);
     padding: 1rem;
-    border-radius: 10px;
+    text-align: left;
 }
 
 .card {

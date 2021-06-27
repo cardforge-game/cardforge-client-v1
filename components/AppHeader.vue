@@ -1,6 +1,6 @@
 <template>
     <header>
-        <a href="http://localhost:3000/"><span class="h5">CardForge</span></a>
+        <a href="http://localhost:3000/"><img src="/logo-header.png" /></a>
 
         <div class="right-side">
             <portal-target name="header"></portal-target>
@@ -22,5 +22,9 @@ header {
 
 .right-side {
     margin-left: auto;
+}
+
+img {
+    height: 50px;
 }
 </style>

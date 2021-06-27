@@ -38,7 +38,7 @@
             <div class="hero-section-1">
                 <div class="hero-column-right">
                     <div style="text-align: right">
-                        <h1 class="title typewriter bold">CardForge</h1>
+                        <img class="image" src="/logo.png" />
                         <p class="subtitle">
                             The card game that puts you at the center.
                         </p>
@@ -104,11 +104,28 @@
                 <div class="hero-column-right-instructions">
                     <h4>Phase 2: Deck Building</h4>
                 </div>
-                <div class="hero-column-left-instructions">zxcvzxcvzxcv</div>
+                <div class="hero-column-left-instructions">
+                    <div>
+                        Build your game deck using the cards your opponents have
+                        created. This is your inventory of cards. From your
+                        inventory, you can choose up to 8 cards to bring into
+                        battle. This is your deck. Choose a deck wisely, as you
+                        cannot change it during a round!
+                    </div>
+                </div>
                 <div class="hero-column-right-instructions">
                     <h4>Phase 3: Fighting</h4>
                 </div>
-                <div class="hero-column-left-instructions">zxcvzxcvzxcv</div>
+                <div class="hero-column-left-instructions">
+                    <div>
+                        During the fight, choose an active card to play with.
+                        Using this card, you can deal damage to other cards and
+                        heal yourself during your turn. Your goal is to knock
+                        out as many players as you can while keeping you
+                        characters at a high health! When you are knocked out,
+                        you may substitute in another card from your deck.
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -163,3 +180,100 @@ export default Vue.extend({
     },
 });
 </script>
+
+<style scoped>
+.hero-section-1 {
+    height: 50%;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hero-section-2 {
+    height: 60%;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    background-color: rgb(47, 54, 66);
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+}
+
+.hero-section-2-small {
+    display: flex;
+    padding: 2.7vw;
+    /* height: 40%; */
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    background-color: rgb(47, 54, 66);
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+    justify-content: center;
+}
+
+.hero-section-1-small {
+    display: flex;
+    padding: 30px;
+    /* height: 40%; */
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+    justify-content: center;
+}
+
+.hero-column-right {
+    flex: 50%;
+    padding: 25px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+}
+
+.hero-column-left {
+    flex: 50%;
+    padding: 25px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+}
+
+.hero-column-right-instructions {
+    flex: 30%;
+    padding: 25px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+}
+
+.hero-column-left-instructions {
+    flex: 70%;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.title {
+    font-size: 4rem;
+    font-family: "Segoe UI", sans-serif;
+    font-style: bold;
+}
+
+.image {
+    max-height: 80%;
+    max-width: 80%;
+    animation-duration: 2s;
+    animation-name: fly-in;
+}
+</style>
