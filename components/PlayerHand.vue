@@ -7,14 +7,25 @@
                 :card="{
                     name: `${card} ${i}`,
                     health: 100,
-                    imgURL: 'https://i.pinimg.com/originals/46/ba/83/46ba83a5a0266908308541742c53abd3.jpg',
+                    imgURL: 'https://cdn.discordapp.com/icons/838576957909237791/4eb40941d1b57d2ce52e58182792e0e7.webp?size=256',
                     attacks: [
-                        { name: 'Tail Whip', damage: 20 },
-                        { name: 'Heal Smack', heal: 40, damage: 10 },
+                        {
+                            name: 'Tail Whip',
+                            damage: 20,
+                            desc: 'senko san won triton hacks and infinten vbuck',
+                        },
+                        {
+                            name: 'Heal Smack',
+                            heal: 40,
+                            damage: 10,
+                            desc: 'i am not just your hrealer fire in the hole watch this',
+                        },
                     ],
                 }"
                 :size="15"
                 :rotation="getCardRotation(i)"
+                :show-details="true"
+                :style="`z-index: ${i + 100};`"
             />
         </div>
     </footer>
@@ -51,7 +62,7 @@ footer {
     justify-self: flex-end;
     align-self: stretch;
     position: relative;
-    height: 5rem;
+    height: 3rem;
 }
 
 .deck {
@@ -60,7 +71,7 @@ footer {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -12rem;
+    bottom: -15rem;
 
     height: 17.5rem;
     transition: bottom 0.25s ease-in-out;
@@ -73,18 +84,13 @@ footer {
 }
 
 .card {
-    color: var(--light);
     margin: 0 -2rem;
-
-    box-shadow: 0 -5px 20px rgba(1, 9, 32, 0.5);
-
-    overflow: hidden;
 
     transition: transform 0.25s ease-in-out;
 }
 
 .card:hover {
-    transform: translateY(-17rem) scale(1.25) !important;
-    z-index: 100;
+    transform: translateY(-20rem) scale(1.25) !important;
+    z-index: 500 !important;
 }
 </style>

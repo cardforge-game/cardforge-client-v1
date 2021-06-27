@@ -4,30 +4,46 @@
         :style="`
             width:${size}rem;
             height:${(size * 4) / 3}rem;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${
                 card.imgURL
             });
             background-size: cover;
             background-position: center; 
-            transform: rotate(${rotation}deg);
+            ${rotation !== 0 ? `transform: rotate(${rotation}deg);` : ''}
+            ${shadow ? 'box-shadow: 0 -5px 20px rgba(1, 9, 32, 0.5);' : ''}
+            ${style}
         `"
     >
-        <div class="cardHeader">
-            <h1 class="cardTitle">{{ card.name }}</h1>
-        </div>
+        <header>
+            <h1 class="card-title">{{ card.name }}</h1>
 
-        <div v-if="showDetails" class="cardContent">
-            <div class="attackContainer">
+            <span class="card-health">
+                <b class="small">HP</b>
+                <span :class="graphicOnly ? '' : 'h6'">
+                    {{ card.health }}
+                </span>
+            </span>
+        </header>
+
+        <div v-if="!graphicOnly" class="card-content">
+            <div class="attack-container">
                 <div
                     v-for="(a, i) in card.attacks"
                     :key="`attk-${i}`"
                     class="attack"
                 >
-                    <p class="outline">{{ a.name }}</p>
-                    <div class="outline attackStats">
-                        <p v-if="a.damage" class="attackStat">
-                            {{ a.damage }}⚔️
-                        </p>
+                    <div>
+                        <p class="outline">{{ a.name }}</p>
+                        <small v-if="showDetails">
+                            {{
+                                a.desc.length > 45
+                                    ? `${a.desc.substring(0, 45)}...`
+                                    : a.desc
+                            }}
+                        </small>
+                    </div>
+                    <div class="outline attack-stats">
+                        <p v-if="a.damage">{{ a.damage }}⚔️</p>
                         <p v-if="a.heal" class="attackStat">{{ a.heal }}🩹</p>
                     </div>
 
@@ -38,24 +54,39 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue, { PropType } from "vue";
+import { ICard } from "~/@types";
+
+export default Vue.extend({
     props: {
         size: {
             type: Number,
             required: true,
         },
         card: {
-            type: Object,
+            type: Object as PropType<ICard>,
             required: true,
         },
         rotation: {
             type: Number,
             default: 0,
         },
-        showDetails: {
+        graphicOnly: {
+            type: Boolean,
+            default: false,
+        },
+        shadow: {
             type: Boolean,
             default: true,
+        },
+        showDetails: {
+            type: Boolean,
+            default: false,
+        },
+        style: {
+            type: String,
+            default: "",
         },
     },
     methods: {
@@ -63,17 +94,17 @@ export default {
             this.$emit("click");
         },
     },
-};
+});
 </script>
 
 <style>
-.attackStats {
+.attack-stats {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
 }
 
-.attackStat {
+.attack-stats p {
     font-size: 80%;
     white-space: nowrap;
     font-weight: bold;
@@ -86,7 +117,7 @@ export default {
     grid-template-columns: 4fr 1fr;
 }
 
-.attackContainer {
+.attack-container {
     margin-left: 1rem;
     display: flex;
     flex-direction: column;
@@ -100,7 +131,33 @@ export default {
         1px 1px 0 #000;
 }
 
-.cardContent {
+header {
+    display: flex;
+    align-items: flex-start;
+}
+
+.card-health {
+    text-align: right;
+
+    margin-left: auto;
+    padding: calc(0.375rem - 1px) calc(0.25rem - 1px);
+
+    border-radius: 0 10px 0 10px;
+    border-right: 2px var(--light) solid;
+    border-top: 2px var(--light) solid;
+
+    position: relative;
+    bottom: 2px;
+    left: 2px;
+
+    background: var(--success-dark);
+}
+
+.card-health * {
+    color: white;
+}
+
+.card-content {
     margin-top: 4rem;
     margin-bottom: 1rem;
     margin-left: 1rem;
@@ -108,20 +165,25 @@ export default {
     height: 50%;
 }
 
-.cardContent * {
+.card-content * {
     color: var(--light);
 }
 
-.cardTitle {
+.card-title {
     overflow: hidden;
+
     color: var(--light);
     font-weight: bold;
     font-size: 140%;
+
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
         1px 1px 0 #000;
+
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+
     margin-left: 0.5rem;
+    margin-top: 0.25rem;
 }
 
 .card {

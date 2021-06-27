@@ -2,16 +2,17 @@ export type PhaseT = "WAITING" | "CREATING" | "DECK" | "FIGHT";
 
 export interface IAttack {
     name: string;
-    damage: number;
-    heal: number;
+    damage?: number;
+    heal?: number;
     desc: string;
 }
 
 export interface ICard {
+    id: string;
     name: string;
     health: number;
-    cost: number;
-    image: string;
+    cardCost: number;
+    imgURL: string;
     attacks: IAttack[];
 }
 

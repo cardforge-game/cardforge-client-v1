@@ -20,7 +20,12 @@
                                 Buy Card
                             </span>
                         </div>
-                        <Card :key="`card-${i}`" :card="c" :size="12.5"></Card>
+                        <Card
+                            :key="`card-${i}`"
+                            :card="c"
+                            :size="15"
+                            :shadow="false"
+                        />
                     </div>
                 </div>
             </div>
@@ -44,12 +49,15 @@
     </main>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
+import { ICard } from "~/@types";
 import connection from "~/connection";
-export default {
+
+export default Vue.extend({
     data() {
         return {
-            cards: [],
+            cards: [] as ICard[],
             inventory: [],
         };
     },
@@ -57,29 +65,38 @@ export default {
         for (let i = 0; i < 5; i++) {
             this.cards.push({
                 id: "xd",
-                name: "Senko Sanko " + i,
+                name: "Triton Hacks " + i,
                 health: 100,
                 cardCost: 2,
-                imgURL: "https://i.pinimg.com/originals/46/ba/83/46ba83a5a0266908308541742c53abd3.jpg",
+                imgURL: "https://cdn.discordapp.com/icons/838576957909237791/4eb40941d1b57d2ce52e58182792e0e7.webp?size=256",
                 attacks: [
-                    { name: "Tail Whip", damage: 20 },
-                    { name: "Heal Smack", heal: 40, damage: 10 },
+                    {
+                        name: "Tail Whip",
+                        damage: 20,
+                        desc: "james charles overdoses on a frappucino",
+                    },
+                    {
+                        name: "Heal Smack",
+                        heal: 40,
+                        damage: 10,
+                        desc: "jojo siwa becomes calliou and wins robux",
+                    },
                 ],
             });
         }
     },
     methods: {
-        buyCard(id) {
+        buyCard(id: string) {
             connection.room?.send("buyCard", id);
         },
-        addToDeck(index) {
+        addToDeck(index: number) {
             connection.room?.send("addCardToDeck", index);
         },
-        addToInv(index) {
+        addToInv(index: number) {
             connection.room?.send("addCardToDeck", index);
         },
     },
-};
+});
 </script>
 
 <style scoped>
@@ -137,6 +154,14 @@ main {
 
 .row {
     display: flex;
+}
+
+.row .deck:first-of-type {
+    border-radius: 10px 0 0 10px;
+}
+
+.row .deck:last-of-type {
+    border-radius: 10px 0 0 1px;
 }
 
 .deck {

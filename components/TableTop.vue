@@ -2,31 +2,64 @@
     <div class="table">
         <div class="row top">
             <template v-for="(n, i) in 3">
-                <TableCard
+                <Card
                     v-if="players[i]"
                     :key="i"
-                    :player="players[i]"
-                    :index="i"
+                    :card="{
+                        id: 'xd',
+                        name: 'Triton Hacks ' + i,
+                        health: 100,
+                        cardCost: 2,
+                        imgURL: 'https://cdn.discordapp.com/icons/838576957909237791/4eb40941d1b57d2ce52e58182792e0e7.webp?size=256',
+                        attacks: [
+                            { name: 'Tail Whip', damage: 20 },
+                            { name: 'Heal Smack', heal: 40, damage: 10 },
+                        ],
+                    }"
+                    :size="9"
+                    :graphic-only="true"
                 />
             </template>
         </div>
         <div class="row mid">
             <template v-for="(n, i) in 2">
-                <TableCard
+                <Card
                     v-if="players[i + 3]"
                     :key="i"
-                    :player="players[i + 3]"
-                    :index="i + 3"
+                    :card="{
+                        id: 'xd',
+                        name: 'Triton Hacks ' + i,
+                        health: 100,
+                        cardCost: 2,
+                        imgURL: 'https://cdn.discordapp.com/icons/838576957909237791/4eb40941d1b57d2ce52e58182792e0e7.webp?size=256',
+                        attacks: [
+                            { name: 'Tail Whip', damage: 20 },
+                            { name: 'Heal Smack', heal: 40, damage: 10 },
+                        ],
+                    }"
+                    :size="9"
+                    :graphic-only="true"
                 />
             </template>
         </div>
         <div class="row bottom">
             <template v-for="(n, i) in 3">
-                <TableCard
+                <Card
                     v-if="players[i + 5]"
                     :key="i"
-                    :player="players[i + 5]"
-                    :index="i + 5"
+                    :card="{
+                        id: 'xd',
+                        name: 'Triton Hacks ' + i,
+                        health: 100,
+                        cardCost: 2,
+                        imgURL: 'https://cdn.discordapp.com/icons/838576957909237791/4eb40941d1b57d2ce52e58182792e0e7.webp?size=256',
+                        attacks: [
+                            { name: 'Tail Whip', damage: 20 },
+                            { name: 'Heal Smack', heal: 40, damage: 10 },
+                        ],
+                    }"
+                    :size="9"
+                    :graphic-only="true"
                 />
             </template>
         </div>
@@ -79,11 +112,11 @@ export default Vue.extend({
 }
 
 @media only screen and (min-width: 1000px) {
-    .row.mid .column:first-of-type {
+    .row.mid .card:first-of-type::v-deep {
         transform: rotate(90deg);
     }
 
-    .row.mid .column:last-of-type {
+    .row.mid .card:last-of-type::v-deep {
         transform: rotate(-90deg);
     }
 
@@ -91,13 +124,13 @@ export default Vue.extend({
         transform: rotate(180deg);
     }
 
-    .row.top .column:first-of-type,
-    .row.bottom .column:first-of-type {
+    .row.top .card:first-of-type::v-deep,
+    .row.bottom .card:first-of-type::v-deep {
         transform: rotate(45deg);
     }
 
-    .row.top .column:last-of-type,
-    .row.bottom .column:last-of-type {
+    .row.top .card:last-of-type,
+    .row.bottom .card:last-of-type {
         transform: rotate(-45deg);
     }
 }
