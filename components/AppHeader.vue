@@ -1,6 +1,6 @@
 <template>
     <header>
-        <a href="http://localhost:3000/"><span class="h5">CardFlow</span></a>
+        <a href="http://localhost:3000/"><span class="h5">CardForge</span></a>
 
         <div class="right-side">
             <portal-target name="header"></portal-target>
