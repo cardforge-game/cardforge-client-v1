@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="deck">
-                <h1 class="section-header">Card Shop 🛒</h1>
+                <h1 class="section-header shop">Card Shop 🛒</h1>
                 <div class="card-container">
                     <div
                         v-for="(c, i) in connection.unsynced.library"
@@ -40,10 +40,10 @@
                         class="card-item"
                     >
                         <Card
-                            @click="addToDeck(i)"
                             :card="c"
                             :size="15"
                             :shadow="false"
+                            @click="addToDeck(i)"
                         />
                     </div>
                 </div>
@@ -57,23 +57,26 @@
                     Select 7 cards from your inventory that you can play in the
                     upcoming round.
                     <br /><br />
-                    <b>Currently: {{connection.currentPlayer.deck.length}}/7</b>
+                    <b
+                        >Currently:
+                        {{ connection.currentPlayer.deck.length }}/7</b
+                    >
                 </p>
             </div>
-             <div class="card-container">
-                    <div
-                        v-for="(c, i) in connection.currentPlayer.deck"
-                        :key="`card-deck-${i}`"
-                        class="card-item"
-                    >
-                        <Card
-                            @click="addToInv(i)"
-                            :card="c"
-                            :size="15"
-                            :shadow="false"
-                        />
-                    </div>
+            <div class="card-container">
+                <div
+                    v-for="(c, i) in connection.currentPlayer.deck"
+                    :key="`card-deck-${i}`"
+                    class="card-item"
+                >
+                    <Card
+                        :card="c"
+                        :size="15"
+                        :shadow="false"
+                        @click="addToInv(i)"
+                    />
                 </div>
+            </div>
         </div>
     </main>
 </template>
@@ -84,26 +87,26 @@ import { ICard } from "~/@types";
 import connection from "~/connection";
 
 export default Vue.extend({
-    computed:{
-        connection() {
-            return connection;
-        }
-    },
     data() {
         return {
             cards: [] as ICard[],
             inventory: [],
         };
     },
+    computed: {
+        connection() {
+            return connection;
+        },
+    },
     methods: {
         buyCard(id: string) {
-            connection.room?.send("buyCard", {id});
+            connection.room?.send("buyCard", { id });
         },
         addToDeck(index: number) {
-            connection.room?.send("addCardToDeck", {index});
+            connection.room?.send("addCardToDeck", { index });
         },
         addToInv(index: number) {
-        connection.room?.send("addCardToInventory", {index});
+            connection.room?.send("addCardToInventory", { index });
         },
     },
 });
@@ -159,7 +162,7 @@ main {
     margin: 0 -6.25px;
 }
 
-.card::v-deep {
+.shop .card::v-deep {
     border-top-left-radius: 0;
 }
 

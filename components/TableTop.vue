@@ -3,14 +3,21 @@
         <div class="row top">
             <template v-for="(n, i) in 3">
                 <Card
-                    v-if="displayPlayers[i + 5] && displayPlayers[i + 5].activeCard"
+                    v-if="
+                        displayPlayers[i + 5] &&
+                        displayPlayers[i + 5].activeCard
+                    "
                     :key="i + 5"
                     :card="displayPlayers[i + 5].activeCard"
-                    :class="{ active: (displayPlayers[i + 5].id === activeID) }"
+                    :class="{ active: displayPlayers[i + 5].id === activeID }"
                     :size="9"
                     :graphic-only="true"
                 />
-                <p v-else-if="displayPlayers[i + 5]" :key="i + 5" class="no-active-username">
+                <p
+                    v-else-if="displayPlayers[i + 5]"
+                    :key="i + 5"
+                    class="no-active-username"
+                >
                     {{ displayPlayers[i + 5].name }}
                     {{ displayPlayers[i + 5].host ? "👑" : "" }}
                 </p>
@@ -19,10 +26,13 @@
         <div class="row mid">
             <template v-for="(n, i) in 2">
                 <Card
-                    v-if="displayPlayers[i + 3] && displayPlayers[i + 3].activeCard"
+                    v-if="
+                        displayPlayers[i + 3] &&
+                        displayPlayers[i + 3].activeCard
+                    "
                     :key="i + 3"
                     :card="displayPlayers[i + 3].activeCard"
-                    :class="{ active: (displayPlayers[i + 3].id === activeID) }"
+                    :class="{ active: displayPlayers[i + 3].id === activeID }"
                     :size="9"
                     :graphic-only="true"
                 />
@@ -42,7 +52,7 @@
                     v-if="displayPlayers[i] && displayPlayers[i].activeCard"
                     :key="i"
                     :card="displayPlayers[i].activeCard"
-                    :class="{ active: (displayPlayers[i].id === activeID) }"
+                    :class="{ active: displayPlayers[i].id === activeID }"
                     :size="9"
                     :graphic-only="true"
                 />
@@ -73,7 +83,7 @@ export default Vue.extend({
         activeID: {
             type: String,
             required: false,
-            default: ""
+            default: "",
         },
     },
     computed: {
@@ -81,7 +91,9 @@ export default Vue.extend({
             if (connection.currentPlayer) {
                 const copy = [...this.players];
 
-                const self = copy.findIndex(p => p.id === connection.currentPlayer?.id);
+                const self = copy.findIndex(
+                    (p) => p.id === connection.currentPlayer?.id
+                );
                 console.log(self);
 
                 if (copy.length > 1) {
@@ -92,13 +104,13 @@ export default Vue.extend({
             } else {
                 return this.players;
             }
-        }
-    }
+        },
+    },
 });
 </script>
 
 <style scoped>
-.active{
+.active {
     border: 3px solid rgb(76, 145, 91);
 }
 .no-active-username {

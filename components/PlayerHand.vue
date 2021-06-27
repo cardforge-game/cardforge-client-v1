@@ -1,11 +1,10 @@
 <template>
     <footer>
-        <span class="helpText" v-if="!connection.currentPlayer.activeCard">
+        <span v-if="!connection.currentPlayer.activeCard" class="helpText">
             Click on a card from your hand to play it!
         </span>
         <div class="deck">
             <Card
-                @click="setActive(i)"
                 v-for="(card, i) in connection.currentPlayer.deck"
                 :key="i"
                 :card="card"
@@ -13,6 +12,7 @@
                 :rotation="getCardRotation(i)"
                 :show-details="true"
                 :custom-style="`z-index: ${i + 100};`"
+                @click="setActive(i)"
             />
         </div>
     </footer>
@@ -23,11 +23,6 @@ import Vue from "vue";
 import connection from "~/connection";
 
 export default Vue.extend({
-    computed:{
-        connection() {
-            return connection;
-        }
-    },
     data() {
         return {
             cards: [
@@ -41,22 +36,27 @@ export default Vue.extend({
             ],
         };
     },
+    computed: {
+        connection() {
+            return connection;
+        },
+    },
 
     methods: {
         getCardRotation(i: number) {
             const midpoint = (this.cards.length - 1) / 2;
             return 2.5 * (i - midpoint);
         },
-        setActive(index: number){
-            connection.room?.send("setActive",{index})
-        }
+        setActive(index: number) {
+            connection.room?.send("setActive", { index });
+        },
     },
 });
 </script>
 
 <style scoped>
-.helpText{
-    color:white;
+.helpText {
+    color: white;
 }
 footer {
     justify-self: flex-end;

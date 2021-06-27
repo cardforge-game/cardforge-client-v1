@@ -164,12 +164,6 @@ export default Vue.extend({
                     },
                 ],
             } as IPreviewCard,
-            /*{
-                name: "",
-                health: 10,
-                imgURL: "",
-                attacks: [],
-            } as IPreviewCard,*/
             acceptedCards: [] as IPreviewCard[],
         };
     },

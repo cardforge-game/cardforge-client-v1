@@ -1,8 +1,8 @@
 <template>
     <div
-        @click="handleClick"
         :class="`card ${showDetails ? 'detailed-card' : ''}`"
         :style="cardStyles"
+        @click="handleClick"
     >
         <header>
             <h1
@@ -105,15 +105,24 @@ export default Vue.extend({
             return `
                 width: ${this.size}rem;
                 height: ${(this.size * 4) / 3}rem;
-                background-image: ${this.graphicOnly ? 
-                        'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),' : 
-                        'linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),'
+                background-image: ${
+                    this.graphicOnly
+                        ? "linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),"
+                        : "linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),"
                 } url(${this.card.imgURL});
-                ${this.rotation !== 0 ? `transform: rotate(${this.rotation}deg);` : ''}
-                ${this.shadow ? 'box-shadow: 0 -5px 20px rgba(1, 9, 32, 0.5);' : ''}
+                ${
+                    this.rotation !== 0
+                        ? `transform: rotate(${this.rotation}deg);`
+                        : ""
+                }
+                ${
+                    this.shadow
+                        ? "box-shadow: 0 -5px 20px rgba(1, 9, 32, 0.5);"
+                        : ""
+                }
                 ${this.customStyle}
             `.replace(/\n/g, " ");
-        }
+        },
     },
     methods: {
         handleClick() {

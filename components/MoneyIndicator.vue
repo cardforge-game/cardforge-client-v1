@@ -3,21 +3,21 @@
         <b>{{ currentPlayer.name }}</b>
 
         <span v-if="currentPlayer">
-           <b>${{ currentPlayer.money }}</b>
+            <b>${{ currentPlayer.money }}</b>
         </span>
     </portal>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 import connection from "~/connection";
 
 export default Vue.extend({
     computed: {
         currentPlayer() {
             return connection.currentPlayer;
-        }
-    }
+        },
+    },
 });
 </script>
 
@@ -26,7 +26,7 @@ span {
     background: var(--success-dark);
     padding: 0.25rem 0.5rem;
     border-radius: 10px;
-    margin-left: 0.25rem
+    margin-left: 0.25rem;
 }
 
 b {

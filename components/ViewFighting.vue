@@ -5,22 +5,15 @@
         <TableTop
             v-if="connection.state.players"
             :players="Object.values(connection.state.players)"
-            :activeID="connection.state.activePlayerID"
+            :active-id="connection.state.activePlayerID"
         />
 
         <PlayerHand />
     </main>
 </template>
 
-<style scoped>
-main {
-    align-items: center;
-    overflow: hidden;
-}
-</style>
-
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 import connection from "~/connection";
 
 export default Vue.extend({
@@ -29,6 +22,12 @@ export default Vue.extend({
             return connection;
         },
     },
-    
-})
+});
 </script>
+
+<style scoped>
+main {
+    align-items: center;
+    overflow: hidden;
+}
+</style>

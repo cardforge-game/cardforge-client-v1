@@ -11,8 +11,8 @@ export default new Vue({
             client: new ColyseusClient(process.env.SERVER_ENDPOINT),
             room: undefined as Room<IRoom> | void,
             eventRegistered: false,
-            unsynced:{
-                library:[]
+            unsynced: {
+                library: [],
             },
             state: {
                 phase: "WAITING",
@@ -79,11 +79,11 @@ export default new Vue({
                 });
                 this.room.onStateChange((state) => {
                     this.state = JSON.parse(JSON.stringify(state));
-                    console.log(JSON.parse(JSON.stringify(state)))
+                    console.log(JSON.parse(JSON.stringify(state)));
                 });
-                this.room.onMessage("library", (lib)=>{
-                    this.unsynced.library = lib
-                })
+                this.room.onMessage("library", (lib) => {
+                    this.unsynced.library = lib;
+                });
                 this.room.onMessage("profits", async (profit: number) => {
                     await Swal.fire({
                         title: "Profit!",
