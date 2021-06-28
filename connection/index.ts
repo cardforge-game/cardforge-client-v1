@@ -10,7 +10,7 @@ export default new Vue({
     data() {
         return {
             client: new ColyseusClient(process.env.SERVER_ENDPOINT),
-            room: undefined as Room<IRoom> | void,
+            room: undefined as Room<IRoom> | undefined,
             eventRegistered: false,
             results: {} as Record<string, number>,
             unsynced: {
@@ -28,7 +28,7 @@ export default new Vue({
     },
 
     computed: {
-        currentPlayer(): IPlayer | void {
+        currentPlayer(): IPlayer | undefined {
             return (
                 this.state.players &&
                 this.room &&

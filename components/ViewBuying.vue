@@ -82,6 +82,7 @@
 </template>
 
 <script lang="ts">
+import Swal from "sweetalert2";
 import Vue from "vue";
 import { ICard } from "~/@types";
 import connection from "~/connection";
@@ -98,6 +99,15 @@ export default Vue.extend({
         connection() {
             return connection;
         },
+    },
+    mounted() {
+        Swal.fire(
+            "Buying Cards",
+            "In this phase of the game, you get to buy cards and add to your inventory and deck. " +
+                "Your inventory can have an infinite amount of cards, but your deck can have up to 7." +
+                "Make sure you have a good amount of cards in your deck, as you can only use your deck in the fighting phase.",
+            "info"
+        );
     },
     methods: {
         buyCard(id: string) {

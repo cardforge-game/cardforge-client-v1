@@ -8,7 +8,7 @@
             </h1>
             <br />
 
-            <details v-if="currentCache.length > 0" open>
+            <details v-if="currentCache.length > 0">
                 <summary class="selectable unhighlightable bold h4">
                     Previous Cards
                 </summary>
@@ -190,6 +190,14 @@ export default Vue.extend({
     },
     mounted() {
         if (!connection.eventRegistered && connection.room) {
+            Swal.fire(
+                "Creating Cards",
+                "In this phase of the game, you can to create your own playing cards for your opponents to use. " +
+                    "Each card can have up to 3 moves, which can heal you or damage an opponent. " +
+                    "Make as many cards as you can, but be wise with your decisions, as your opponents are using your cards.",
+                "info"
+            );
+
             connection.eventRegistered = true;
 
             connection.room.onMessage("previewCard", (card: IPreviewCard) => {

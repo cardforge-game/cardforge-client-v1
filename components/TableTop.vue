@@ -96,6 +96,7 @@
 <script lang="ts">
 import Vue from "vue";
 
+import Swal from "sweetalert2";
 import connection from "~/connection";
 
 import { IAttack, IPlayer } from "~/@types";
@@ -150,11 +151,19 @@ export default Vue.extend({
 
             if (this.turnInitiated && !clickedSelf) {
                 this.turnInitiated = false;
-                alert(`You want to attack ${player.name}.`);
+                Swal.fire({
+                    title: `You're attacking ${player.name}.`,
+                    text: `Now choose an attack on your active card.`,
+                    icon: "info",
+                });
                 this.attackTarget = player.id || null;
                 this.showCardDialog = true;
             } else if (clickedSelf && selfTurn) {
-                alert("You initiated a turn.");
+                Swal.fire({
+                    title: "You're starting your turn.",
+                    text: `Click on an opponent to attack them`,
+                    icon: "info",
+                });
                 this.turnInitiated = true;
             }
         },
